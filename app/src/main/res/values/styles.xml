@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomHintTextStyle">
+        <item name="android:textColor">#FF005F</item>
+    </style>
+    <style name="NoBorderTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundMode">none</item>
+    </style>
+
+    <style name="btn_style" parent="Widget.AppCompat.Button">
+        <item name="android:background">#FF005F</item>
+    </style>
+
+    <style name="dialogConfirmBtn" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">#FF005F</item>
+    </style>
+
+</resources>

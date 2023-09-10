@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Rudo News</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="iniciar_sesion">INICIAR SESIÓN</string>
+    <string name="dialog_text">El mail o la contraseña son erróneos, vuelve a intentarlo.</string>
+</resources>
