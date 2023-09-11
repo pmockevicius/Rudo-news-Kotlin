@@ -6,6 +6,13 @@
     <color name="fucia_disabled">#80FF005F</color>
     <color name="soft_grey">#F9F9F9</color>
     <color name="Grey">#9D9FA7</color>
+    <color name="Error">#F07E3D</color>
+    <color name="ErrorInputBg">#0FF07E3D</color>
+    <color name="ValidationBoxTrue">#1F53D487</color>
+    <color name="ValidationBoxFalse">#1F00001F</color>
+    <color name="ValidationBoxText">#53D487</color>
+    <color name="AppBackground">#00000033</color>
+    <color name="linkBlue">#0101FB</color>
 
 </resources>
 

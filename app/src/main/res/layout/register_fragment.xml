@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="16dp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingClass">
 
 
         <!--        //Departamentos//-->
@@ -28,21 +28,22 @@
             android:background="@color/white"
             android:hint="Departamento/s"
             android:orientation="vertical"
+            android:textColorHint="@color/fucia"
             app:boxBackgroundColor="@color/white"
             app:boxStrokeColor="@color/fucia"
-
             app:hintTextColor="@color/fucia"
-            android:textColorHint="@color/fucia"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+
             >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/registerTextInputDepartamentos"
                 style="@style/Widget.Material3.TextInputEditText.FilledBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:lines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -57,21 +58,59 @@
             android:background="@color/white"
             android:hint="Nombre y Apellidos*"
             android:orientation="vertical"
+            android:textColorHint="@color/Grey"
             app:boxBackgroundColor="@color/white"
             app:boxStrokeColor="@color/fucia"
+            app:helperTextEnabled="true"
+            app:helperTextTextColor="@color/Error"
             app:hintTextColor="@color/fucia"
-            android:textColorHint="@color/Grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/registerTextInputLayoutDepartamentos"
-            >
+            app:layout_constraintTop_toBottomOf="@id/registerTextInputLayoutDepartamentos">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/registerTextInputNombre"
                 style="@style/Widget.Material3.TextInputEditText.FilledBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:lines="1" />
+
+
         </com.google.android.material.textfield.TextInputLayout>
+
+        <!--        //Nombre y Apellidos Validation Error Message//-->
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registerTextInputLayoutNombre">
+
+            <TextView
+                android:id="@+id/nombreErrorTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text=""
+                android:textColor="@color/Error"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/nombreErrorImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="0"
+                android:src="@drawable/warning"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/registerTextInputLayoutNombre" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
 
         <!--        //Mail//-->
 
@@ -84,21 +123,54 @@
             android:background="@color/white"
             android:hint="Mail*"
             android:orientation="vertical"
+            android:textColorHint="@color/Grey"
             app:boxBackgroundColor="@color/white"
             app:boxStrokeColor="@color/fucia"
             app:hintTextColor="@color/fucia"
-            android:textColorHint="@color/Grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/registerTextInputLayoutNombre"
-            >
+            app:layout_constraintTop_toBottomOf="@id/registerTextInputLayoutNombre">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/registerTextInputMail"
                 style="@style/Widget.Material3.TextInputEditText.FilledBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:lines="1" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <!--        //Mail Validation Error Message//-->
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registerTextInputLayoutMail">
+
+            <TextView
+                android:id="@+id/mailErrorTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text=""
+                android:textColor="@color/Error"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/mailErrorImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="0"
+                android:src="@drawable/warning"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/registerTextInputLayoutMail" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <!--        //Contraceña//-->
 
@@ -111,11 +183,11 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:hint="Contraceña"
+            android:textColorHint="@color/Grey"
             app:boxBackgroundColor="@color/white"
             app:boxStrokeColor="@color/fucia"
             app:expandedHintEnabled="true"
             app:hintTextColor="@color/fucia"
-            android:textColorHint="@color/Grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/registerTextInputLayoutMail"
@@ -125,23 +197,267 @@
                 android:id="@+id/registerTextInputContracena"
                 style="@style/Widget.Material3.TextInputEditText.FilledBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:lines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!--        //Password Validation Error Message//-->
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registerTextInputLayoutContracena">
+
+            <TextView
+                android:id="@+id/passwordErrorTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:text=""
+                android:textColor="@color/Error"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/passwordErrorImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="0"
+                android:src="@drawable/warning"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/registerTextInputLayoutContracena" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+         android:id="@+id/actionLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/registerTextInputLayoutContracena"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="15dp"
+
+            >
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardMayuscula"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/Grey"
+                android:layout_marginEnd="8dp">
+
+                <TextView
+                    android:id="@+id/textViewMayuscula"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="MAYÚSCULA"
+                    android:layout_gravity="center"
+                    android:textColor="@color/Grey"
+                    android:paddingVertical="8dp"
+                    />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardMinuscula"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/AppBackground"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/Grey"
+                android:layout_marginStart="8dp"
+                android:layout_marginHorizontal="5dp">
+
+                <TextView
+                    android:id="@+id/textViewMinuscula"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="minúscula"
+                    android:gravity="center"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/Grey"/>
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/actionLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/actionLayout1"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="15dp"
+            >
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card8Characters"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/AppBackground"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/Grey"
+                android:layout_marginEnd="8dp"
+                >
+
+                <TextView
+                    android:id="@+id/textView8Characters"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="8 CARÁCTERES"
+                    android:gravity="center"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/Grey"/>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardNumeros"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/AppBackground"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/Grey"
+                android:layout_marginStart="8dp"
+                android:layout_marginHorizontal="5dp"
+                >
+
+                <TextView
+                    android:id="@+id/textViewNumeros"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="NÚMEROS"
+                    android:gravity="center"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/Grey"/>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/actionLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/actionLayout2"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="15dp"
+            >
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardEspecialCharacters"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/AppBackground"
+                android:layout_weight="1"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/Grey"
+                android:layout_marginEnd="8dp"
+                >
+
+                <TextView
+                    android:id="@+id/textViewEspecialCharacters"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="CARÁCTER ESPECIAL"
+                    android:gravity="center"
+                    android:paddingVertical="8dp"
+                    android:textColor="@color/Grey"/>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"/>
 
 
 
 
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/radioBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           app:layout_constraintBottom_toTopOf="@id/BtnRegisterInRegister"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="15dp">
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                style="@style/Widget.App.RadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/radioBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:buttonTint="@color/Error"
+                >
+
+            </com.google.android.material.radiobutton.MaterialRadioButton>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Si, he leido y acepto las "
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="políticas de privacidad"
+                android:gravity="center"
+                android:textColor="@color/linkBlue"
+                android:textStyle="bold"/>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/BtnRegisterInRegister"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:fontFamily="sans-serif"
+            android:backgroundTint="@color/fucia"
+            android:text="REGISTER"
+            android:textColor="@color/white"
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
 
 
 
