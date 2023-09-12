@@ -14,7 +14,6 @@ class MockAuthDatasource() : AuthDatasourceInterface {
         users.add(User("user2@example.com", "password2"))
         users.add(User("user3@example.com", "password3"))
         users.add(User("user4@example.com", "password4"))
-
         return users
     }
 }

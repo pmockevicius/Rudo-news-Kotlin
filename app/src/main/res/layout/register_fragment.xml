@@ -44,7 +44,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:drawableEnd="@drawable/iconforward"
-                    android:lines="1" />
+                    android:textColor="@color/fucia"
+                    />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -409,7 +410,6 @@
                 style="@style/RadioButtonUncheckedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:buttonTint="@color/Error"
                 app:layout_constraintBottom_toTopOf="@id/radioBtnLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">

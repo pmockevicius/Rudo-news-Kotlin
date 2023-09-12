@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.example.rudonews.MainActivity
 import com.example.rudonews.R
 import com.example.rudonews.databinding.RegisterFragmentBinding
+import com.example.rudonews.domain.entity.Departament
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.radiobutton.MaterialRadioButton
 
@@ -21,6 +22,7 @@ class Register_fragment : Fragment() {
 
     private lateinit var binding: RegisterFragmentBinding
     private lateinit var  passwordText: String
+    private var selectedDepartments: List<Departament>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,9 @@ class Register_fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        selectedDepartments = arguments?.getSerializable("selectedDepartments") as? List<Departament>
+
         onView()
     }
 
@@ -51,6 +56,28 @@ class Register_fragment : Fragment() {
         passwordTextChangeListener()
         initRadioButtonListener()
         departamentosOnFocusListener()
+        setSelectedDepartments()
+        removeDepartamentosHint()
+    }
+
+    private fun removeDepartamentosHint(){
+        if (binding.registerTextInputDepartamentos.length() != 0){
+            binding.registerTextInputLayoutDepartamentos.hint = null
+        }
+    }
+
+    private fun setSelectedDepartments(){
+        if (selectedDepartments != null) {
+            println("selectedDepartments in frag $selectedDepartments")
+            val selectedDepartmentNames = selectedDepartments!!.map { it.deptName }
+            val concatenatedNames = selectedDepartmentNames.joinToString("/")
+
+            binding.registerTextInputDepartamentos.setText(concatenatedNames)
+            println("selectedDepartmentNames $selectedDepartmentNames")
+
+        } else {
+            println("selectedDepartments do not exist")
+        }
     }
 
     private fun initButtonListener() {

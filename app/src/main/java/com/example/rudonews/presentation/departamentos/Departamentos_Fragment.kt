@@ -5,30 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.CheckedTextView
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rudonews.MainActivity
 import com.example.rudonews.R
-import com.example.rudonews.data.dataSource.auth.MockAuthDatasource
 import com.example.rudonews.data.dataSource.auth.MockDataSource
-import com.example.rudonews.data.repository.AuthRepository
 import com.example.rudonews.data.repository.DataRepository
 import com.example.rudonews.databinding.FragmentDepartamentosBinding
-import com.example.rudonews.databinding.RegisterFragmentBinding
 import com.example.rudonews.domain.entity.Departament
-import com.example.rudonews.domain.usecase.AuthUsecase
 import com.example.rudonews.domain.usecase.DataUsecase
-import com.example.rudonews.presentation.login.LoginViewModel
+import com.example.rudonews.presentation.departamentos.DepartamentoViewHolder
+import com.example.rudonews.presentation.register.Register_fragment
 
 
 class Departamentos_Fragment : Fragment() {
 
-private lateinit var viewModel: DepartamentosViewModel
+    private lateinit var viewModel: DepartamentosViewModel
     private lateinit var binding: FragmentDepartamentosBinding
+
+    private lateinit var departments: List<Departament>
 
 
     private lateinit var dataUsecase: DataUsecase
@@ -62,48 +57,62 @@ private lateinit var viewModel: DepartamentosViewModel
 
 
         setupRecyclerView()
-
+        initDepAcceptBtnListener()
     }
 
-    fun setupRecyclerView(){
+    fun initDepAcceptBtnListener(){
+        binding.btnDepartamento.setOnClickListener{
+
+            var selectedDepartments = getSelectedDepartments()
+            println("accept pressed")
+            println("selectedDepartments $selectedDepartments")
+            val registerFragment = Register_fragment()
+            val bundle = Bundle()
+            bundle.putSerializable("selectedDepartments", ArrayList(selectedDepartments))
+
+            registerFragment.arguments = bundle
+
+            println("${registerFragment.arguments} arguments")
+
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.fragment_container, registerFragment)
+                addToBackStack(null)
+                commit()
+            }
+        }
+    }
+
+    fun setupRecyclerView() {
         val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerViewDepartamentos)
         if (recyclerView != null) {
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
         }
-        val departments = getDepartments()
+         departments = getDepartments()
 
         val adapter = DepartamentoAdapter(departments)
         if (recyclerView != null) {
             recyclerView.adapter = adapter
         }
 
-        displayDepartments()
     }
 
     fun getDepartments(): List<Departament> {
-        var departaments = viewModel.getDepartaments()
-        return departaments
+         var departments = viewModel.getDepartaments()
+        println("departamentos $departments")
+        return departments
     }
 
+    fun getSelectedDepartments(): List<Departament> {
+        val selectedDepartments = mutableListOf<Departament>()
 
-    fun displayDepartments(){
-//        val departmentContainer = binding.departmentContainer
-//        val departments = getDepartments()
-//
-//        for (department in departments) {
-//            val checkBox = CheckBox(requireContext())
-//
-//            checkBox.text = department.deptName
-//            checkBox.layoutParams = ViewGroup.LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT
-//            )
-//
-//            checkBox.setTextColor(ContextCompat.getColor(requireContext(), R.color.fucia))
-//            departmentContainer.addView(checkBox)
-//        }
+        for (department in departments) {
+            if (department.isChecked) {
+                selectedDepartments.add(department)
+            }
+        }
 
-
+        return selectedDepartments
     }
 
 }
+

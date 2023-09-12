@@ -11,12 +11,13 @@ class DepartamentoAdapter(private val departamentos: List<Departament>) : Recycl
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DepartamentoViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_departamento, parent, false)
-        return DepartamentoViewHolder(itemView)
+        return DepartamentoViewHolder(itemView, departamentos)
     }
 
     override fun onBindViewHolder(holder: DepartamentoViewHolder, position: Int) {
         val departamento = departamentos[position]
         holder.departamentoNameTextView.text = departamento.deptName
+        holder.checkBox.isChecked = departamento.isChecked
     }
 
     override fun getItemCount(): Int {
