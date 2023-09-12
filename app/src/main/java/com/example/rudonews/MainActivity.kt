@@ -1,15 +1,17 @@
 package com.example.rudonews
 
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import com.example.rudonews.databinding.ActivityMainBinding
+import com.example.rudonews.presentation.departamentos.Departamentos_Fragment
 import com.example.rudonews.presentation.login.Login_fragment
 import com.example.rudonews.presentation.register.Register_fragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedListener {
 
     private lateinit var navBarTextView: TextView
     private lateinit var binding: ActivityMainBinding
@@ -18,9 +20,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        supportFragmentManager.addOnBackStackChangedListener(this)
 
         navBarTextView = findViewById(R.id.navBarTextView)
+
 
         val needsLogin = true
         if (needsLogin) {
@@ -34,26 +37,49 @@ class MainActivity : AppCompatActivity() {
         setUpBackNavigationListener()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        supportFragmentManager.removeOnBackStackChangedListener(this)
+    }
+
 
     fun setUpBackNavigationListener(){
         var navBarBackArrow = findViewById<ImageView>(R.id.NavBarBackArrow)
         navBarBackArrow.setOnClickListener {
-            supportFragmentManager.popBackStack()
+            println("clicked back")
+            if (supportFragmentManager.backStackEntryCount > 1){
+                supportFragmentManager.popBackStack()
+            }
+
         }
     }
+
 
     fun setNavBarText(text: String){
         navBarTextView.text = text
     }
-
-
 
     fun navigateToRegisterPage(){
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, Register_fragment())
             .addToBackStack(null)
             .commit()
+    }
 
+    fun navigateToDepartamentosFragment(){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, Departamentos_Fragment())
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun onBackStackChanged() {
+        var navBarBackArrow = findViewById<ImageView>(R.id.NavBarBackArrow)
+        if (supportFragmentManager.backStackEntryCount == 1) {
+            navBarBackArrow.visibility = View.GONE
+        } else {
+            navBarBackArrow.visibility = View.VISIBLE
+        }
     }
 
 }

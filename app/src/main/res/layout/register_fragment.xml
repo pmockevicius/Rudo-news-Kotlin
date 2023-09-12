@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,32 +19,35 @@
 
         <!--        //Departamentos//-->
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/registerTextInputLayoutDepartamentos"
-            style="@style/Widget.Material3.TextInputLayout.FilledBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:background="@color/white"
-            android:hint="Departamento/s"
-            android:orientation="vertical"
-            android:textColorHint="@color/fucia"
-            app:boxBackgroundColor="@color/white"
-            app:boxStrokeColor="@color/fucia"
-            app:hintTextColor="@color/fucia"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/registerTextInputLayoutDepartamentos"
+                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@color/white"
+                android:hint="Departamento/s"
+                android:orientation="vertical"
+                android:textColorHint="@color/fucia"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeColor="@color/fucia"
+                app:hintTextColor="@color/fucia"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            >
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/registerTextInputDepartamentos"
-                style="@style/Widget.Material3.TextInputEditText.FilledBox"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:lines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:id="@+id/registerTextInputDepartamentos"
+                    style="@style/Widget.Material3.TextInputEditText.FilledBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableEnd="@drawable/iconforward"
+                    android:lines="1" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
         <!--        //Nombre y Apellidos*//-->
@@ -236,13 +239,13 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-         android:id="@+id/actionLayout1"
+            android:id="@+id/actionLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/registerTextInputLayoutContracena"
-            app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registerTextInputLayoutContracena"
 
             >
 
@@ -250,44 +253,43 @@
                 android:id="@+id/cardMayuscula"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/Grey"
-                android:layout_marginEnd="8dp">
+                app:strokeColor="@color/Grey">
 
                 <TextView
                     android:id="@+id/textViewMayuscula"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="MAYÚSCULA"
                     android:layout_gravity="center"
-                    android:textColor="@color/Grey"
+                    android:gravity="center"
                     android:paddingVertical="8dp"
-                    />
+                    android:text="MAYÚSCULA"
+                    android:textColor="@color/Grey" />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardMinuscula"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/AppBackground"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginStart="8dp"
                 android:layout_weight="1"
+                android:backgroundTint="@color/AppBackground"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/Grey"
-                android:layout_marginStart="8dp"
-                android:layout_marginHorizontal="5dp">
+                app:strokeColor="@color/Grey">
 
                 <TextView
                     android:id="@+id/textViewMinuscula"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="minúscula"
                     android:gravity="center"
                     android:paddingVertical="8dp"
-                    android:textColor="@color/Grey"/>
+                    android:text="minúscula"
+                    android:textColor="@color/Grey" />
             </com.google.android.material.card.MaterialCardView>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -296,32 +298,30 @@
             android:id="@+id/actionLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/actionLayout1"
-            app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="15dp"
-            >
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/actionLayout1">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card8Characters"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/AppBackground"
+                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
+                android:backgroundTint="@color/AppBackground"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/Grey"
-                android:layout_marginEnd="8dp"
-                >
+                app:strokeColor="@color/Grey">
 
                 <TextView
                     android:id="@+id/textView8Characters"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="8 CARÁCTERES"
                     android:gravity="center"
                     android:paddingVertical="8dp"
-                    android:textColor="@color/Grey"/>
+                    android:text="8 CARÁCTERES"
+                    android:textColor="@color/Grey" />
 
 
             </com.google.android.material.card.MaterialCardView>
@@ -330,23 +330,22 @@
                 android:id="@+id/cardNumeros"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/AppBackground"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginStart="8dp"
                 android:layout_weight="1"
+                android:backgroundTint="@color/AppBackground"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/Grey"
-                android:layout_marginStart="8dp"
-                android:layout_marginHorizontal="5dp"
-                >
+                app:strokeColor="@color/Grey">
 
                 <TextView
                     android:id="@+id/textViewNumeros"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="NÚMEROS"
                     android:gravity="center"
                     android:paddingVertical="8dp"
-                    android:textColor="@color/Grey"/>
+                    android:text="NÚMEROS"
+                    android:textColor="@color/Grey" />
 
 
             </com.google.android.material.card.MaterialCardView>
@@ -358,32 +357,30 @@
             android:id="@+id/actionLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/actionLayout2"
-            app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="15dp"
-            >
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/actionLayout2">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardEspecialCharacters"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/AppBackground"
+                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
+                android:backgroundTint="@color/AppBackground"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/Grey"
-                android:layout_marginEnd="8dp"
-                >
+                app:strokeColor="@color/Grey">
 
                 <TextView
                     android:id="@+id/textViewEspecialCharacters"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="CARÁCTER ESPECIAL"
                     android:gravity="center"
                     android:paddingVertical="8dp"
-                    android:textColor="@color/Grey"/>
+                    android:text="CARÁCTER ESPECIAL"
+                    android:textColor="@color/Grey" />
 
 
             </com.google.android.material.card.MaterialCardView>
@@ -391,54 +388,50 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="8dp"/>
-
-
+                android:layout_marginStart="8dp"
+                android:layout_weight="1" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/radioBtn"
+            android:id="@+id/radioBtnLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-           app:layout_constraintBottom_toTopOf="@id/BtnRegisterInRegister"
-            app:layout_constraintEnd_toStartOf="parent"
+            android:layout_marginTop="15dp"
+            app:layout_constraintBottom_toTopOf="@id/BtnRegisterInRegister"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="15dp">
+            app:layout_constraintEnd_toStartOf="parent">
 
             <com.google.android.material.radiobutton.MaterialRadioButton
-                style="@style/Widget.App.RadioButton"
+                android:id="@+id/radioBtn"
+                style="@style/RadioButtonUncheckedStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@id/radioBtn"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:buttonTint="@color/Error"
-                >
+                app:layout_constraintBottom_toTopOf="@id/radioBtnLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
             </com.google.android.material.radiobutton.MaterialRadioButton>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Si, he leido y acepto las "
-                android:gravity="center"/>
+                android:gravity="center"
+                android:text="Si, he leido y acepto las " />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="políticas de privacidad"
                 android:gravity="center"
+                android:text="políticas de privacidad"
                 android:textColor="@color/linkBlue"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-
-
 
 
         <com.google.android.material.button.MaterialButton
@@ -446,24 +439,17 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
-            android:fontFamily="sans-serif"
             android:backgroundTint="@color/fucia"
+            android:fontFamily="sans-serif"
             android:text="REGISTER"
             android:textColor="@color/white"
             app:cornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

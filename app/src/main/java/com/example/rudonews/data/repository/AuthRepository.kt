@@ -9,7 +9,7 @@ interface AuthRepositoryInterface{
 
 }
 
-class AuthRepository(val mockAuthDatasource: MockAuthDatasource):AuthRepositoryInterface  {
+class AuthRepository(private val mockAuthDatasource: MockAuthDatasource):AuthRepositoryInterface  {
 
     override suspend fun getUsers(): List<User> {
         var users  = mockAuthDatasource.getMockUsers()

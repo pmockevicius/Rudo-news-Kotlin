@@ -1,31 +1,20 @@
 package com.example.rudonews.presentation.register
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
-import androidx.core.view.isGone
-import androidx.core.view.isInvisible
+import androidx.fragment.app.Fragment
 import com.example.rudonews.MainActivity
 import com.example.rudonews.R
-import com.example.rudonews.databinding.ActivityMainBinding
 import com.example.rudonews.databinding.RegisterFragmentBinding
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.radiobutton.MaterialRadioButton
 
 
 class Register_fragment : Fragment() {
@@ -45,8 +34,6 @@ class Register_fragment : Fragment() {
         binding = RegisterFragmentBinding.inflate(inflater, container, false)
         return binding.root
 
-
-
     }
 
 
@@ -60,12 +47,13 @@ class Register_fragment : Fragment() {
         activity?.setNavBarText("Registro")
         nameFocusListener()
         mailFocusListener()
-//        passwordFocusListener()
-        registerButtonListener()
+        initButtonListener()
         passwordTextChangeListener()
+        initRadioButtonListener()
+        departamentosOnFocusListener()
     }
 
-    private fun registerButtonListener() {
+    private fun initButtonListener() {
         val registerBtn = binding.BtnRegisterInRegister
         registerBtn.setOnClickListener {
             println("clicked Register")
@@ -78,12 +66,21 @@ class Register_fragment : Fragment() {
         }
     }
 
-    private fun passwordFocusListener() {
-        binding.registerTextInputContracena.setOnFocusChangeListener { _, focused ->
-            if (!focused) {
-                binding.passwordErrorTextView.setText(validatePassword())
+    private fun initRadioButtonListener(){
+        val radioButton: MaterialRadioButton = binding.radioBtn
+
+        radioButton.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                println("button checked")
+                radioButton.buttonTintList =
+                    context?.let { ContextCompat.getColorStateList(it, com.example.rudonews.R.color.fucia) }
+            } else {
+                radioButton.buttonTintList =
+                    context?.let { ContextCompat.getColorStateList(it, com.example.rudonews.R.color.Error) }
             }
         }
+
+
     }
 
     private fun mailFocusListener() {
@@ -99,47 +96,6 @@ class Register_fragment : Fragment() {
             if (!focused) {
                 binding.nombreErrorTextView.setText(validateName())
             }
-        }
-    }
-
-    private fun validatePassword(): String? {
-
-        val containsUppercase = passwordText.matches(Regex(".*[A-Z].*"))
-        val containsLowercase = passwordText.matches(Regex(".*[a-z].*"))
-        val containsSpecialCharacter = passwordText.matches(Regex(".*[@#\$%^&+=!].*"))
-        val atLeast8Characters = passwordText.length >= 8
-
-        if (!containsUppercase || !containsLowercase || !containsSpecialCharacter || !atLeast8Characters) {
-            addPasswordValidationErrorStyle()
-
-            val errorMessage = when {
-                !containsUppercase && !containsLowercase ->
-                    "Password must contain at least 1 Upper-case and 1 Lower-case Character"
-
-                !containsUppercase ->
-                    "Password must contain at least 1 Upper-case Character"
-
-                !containsLowercase ->
-                    "Password must contain at least 1 Lower-case Character"
-
-                !containsSpecialCharacter ->
-                    "Password must contain at least 1 Special Character"
-
-                !atLeast8Characters ->
-                    "Password must be at least 8 Characters long"
-
-                else ->
-                    "Invalid password"
-            }
-            return errorMessage
-        } else {
-            binding.registerTextInputLayoutContracena.boxStrokeColor =
-                context?.getColor(R.color.fucia) ?: R.color.fucia
-            binding.passwordErrorImageView.visibility = View.GONE
-            binding.registerTextInputLayoutContracena.boxBackgroundColor =
-                context?.getColor(R.color.white) ?: R.color.fucia
-
-            return null
         }
     }
 
@@ -177,14 +133,6 @@ class Register_fragment : Fragment() {
         binding.registerTextInputLayoutNombre.boxBackgroundColor =
             context?.getColor(R.color.white) ?: R.color.fucia
         return null
-    }
-
-    private fun addPasswordValidationErrorStyle() {
-        binding.registerTextInputLayoutContracena.boxStrokeColor =
-            context?.getColor(R.color.Error) ?: R.color.fucia
-        binding.passwordErrorImageView.visibility = View.VISIBLE
-        binding.registerTextInputLayoutContracena.boxBackgroundColor =
-            context?.getColor(R.color.ErrorInputBg) ?: R.color.fucia
     }
 
     private fun passwordTextChangeListener(){
@@ -241,12 +189,19 @@ class Register_fragment : Fragment() {
                 cardView.strokeColor = (resources.getColor(textColor))
 
             }
-
-
             override fun afterTextChanged(s: Editable?) {
 
             }
         })
 
     }
+
+    private fun departamentosOnFocusListener(){
+         binding.registerTextInputDepartamentos.setOnFocusChangeListener { _, focused ->
+             ( activity as? MainActivity)?.navigateToDepartamentosFragment()
+
+        }
+    }
+
+
 }
