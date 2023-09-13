@@ -20,25 +20,21 @@ import com.example.rudonews.presentation.register.Register_fragment
 
 class Departamentos_Fragment : Fragment() {
 
-    private lateinit var viewModel: DepartamentosViewModel
     private lateinit var binding: FragmentDepartamentosBinding
-
     private lateinit var departments: List<Departament>
 
-
+    private lateinit var viewModel: DepartamentosViewModel
     private lateinit var dataUsecase: DataUsecase
     private lateinit var dataRepository: DataRepository
     private lateinit var mockDatasource: MockDataSource
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val activity = activity as? MainActivity
-        activity?.setNavBarText("Departamentos")
 
         mockDatasource = MockDataSource()
         dataRepository = DataRepository(mockDatasource)
         dataUsecase = DataUsecase(dataRepository)
         viewModel = DepartamentosViewModel(dataUsecase)
-
     }
 
     override fun onCreateView(
@@ -48,21 +44,24 @@ class Departamentos_Fragment : Fragment() {
 
         binding = FragmentDepartamentosBinding.inflate(inflater, container, false)
         return binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        setNavBarTitle()
         setupRecyclerView()
         initDepAcceptBtnListener()
     }
 
+    private fun setNavBarTitle(){
+
+        val activity = activity as? MainActivity
+        activity?.setNavBarText("Departamentos")
+    }
+
     fun initDepAcceptBtnListener(){
         binding.btnDepartamento.setOnClickListener{
-
             var selectedDepartments = getSelectedDepartments()
             println("accept pressed")
             println("selectedDepartments $selectedDepartments")

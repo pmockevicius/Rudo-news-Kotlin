@@ -14,7 +14,6 @@ import com.example.rudonews.R
 import com.example.rudonews.data.dataSource.auth.MockAuthDatasource
 import com.example.rudonews.data.repository.AuthRepository
 import com.example.rudonews.domain.usecase.AuthUsecase
-import com.example.rudonews.presentation.register.Register_fragment
 import com.example.rudonews.utils.helpers.DialogHelper.Companion.showAlertDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -33,6 +32,9 @@ class Login_fragment : Fragment() {
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
     private lateinit var registerButton: Button
+    private lateinit var dialogOverlayView: View
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +60,7 @@ class Login_fragment : Fragment() {
         loginButton = view.findViewById(R.id.BtnLogin)
         registerButton = view.findViewById(R.id.BtnRegister)
 
-
+        dialogOverlayView = layoutInflater.inflate(R.layout.dialog_overlay, null)
 
         onView()
         initTextChangeListeners()
@@ -73,6 +75,7 @@ class Login_fragment : Fragment() {
     }
 
     private fun initLoginClickListener() {
+
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
@@ -92,6 +95,11 @@ class Login_fragment : Fragment() {
         }
     }
 
+    fun onView() {
+        disableButton()
+        setNavBarTitle()
+
+    }
     private fun initTextChangeListeners() {
 
         emailEditText.addTextChangedListener(object : TextWatcher {
@@ -99,13 +107,7 @@ class Login_fragment : Fragment() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
-                if (emailEditText.text.isNullOrBlank() || passwordEditText.text.isNullOrBlank()) {
-                    loginButton.isEnabled = false
-                    loginButton.setBackgroundColor(resources.getColor(R.color.fucia_disabled))
-                } else {
-                    loginButton.isEnabled = true
-                    loginButton.setBackgroundColor(resources.getColor(R.color.fucia))
-                }
+                enableButton()
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -115,26 +117,34 @@ class Login_fragment : Fragment() {
         passwordEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                enableButton()
+            }
 
             override fun afterTextChanged(s: Editable?) {
-                if (emailEditText.text.isNullOrBlank() || passwordEditText.text.isNullOrBlank()) {
-                    loginButton.isEnabled = false
-                    loginButton.setBackgroundColor(resources.getColor(R.color.fucia_disabled))
-                } else {
-                    loginButton.isEnabled = true
-                    loginButton.setBackgroundColor(resources.getColor(R.color.fucia))
-                }
+
             }
         })
     }
 
-    fun onView() {
+    private fun enableButton(){
+        if (emailEditText.text.isNullOrBlank() || passwordEditText.text.isNullOrBlank()) {
+            loginButton.isEnabled = false
+            loginButton.setBackgroundColor(resources.getColor(R.color.fucia_disabled))
+        } else {
+            loginButton.isEnabled = true
+            loginButton.setBackgroundColor(resources.getColor(R.color.fucia))
+        }
+    }
+
+    private fun disableButton(){
         loginButton.isEnabled = false
         loginButton.setBackgroundColor(resources.getColor(R.color.fucia_disabled))
+    }
 
+    private fun setNavBarTitle(){
         val activity = activity as? MainActivity
         activity?.setNavBarText("Iniciar sesión")
     }
-
 }

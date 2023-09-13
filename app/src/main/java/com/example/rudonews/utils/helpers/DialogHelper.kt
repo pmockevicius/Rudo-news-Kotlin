@@ -12,10 +12,8 @@ class DialogHelper {
             MaterialAlertDialogBuilder(context)
                 .setMessage(message)
                 .setPositiveButton("ACEPTAR") { dialog, which ->
-                    println("clicked")
                 }
                 .show()
-
 
         }
     }

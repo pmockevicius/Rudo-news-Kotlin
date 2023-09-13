@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -14,15 +15,27 @@ import com.example.rudonews.MainActivity
 import com.example.rudonews.R
 import com.example.rudonews.databinding.RegisterFragmentBinding
 import com.example.rudonews.domain.entity.Departament
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.radiobutton.MaterialRadioButton
+import com.google.android.material.textfield.TextInputEditText
 
 
 class Register_fragment : Fragment() {
 
     private lateinit var binding: RegisterFragmentBinding
-    private lateinit var  passwordText: String
+    private lateinit var passwordText: String
     private var selectedDepartments: List<Departament>? = null
+
+    private lateinit var registerButton: MaterialButton
+    private lateinit var radioButton: MaterialRadioButton
+    private lateinit var departamentsInput: EditText
+    private lateinit var nameInput: TextInputEditText
+    private lateinit var nameInputErrorText: TextView
+    private lateinit var mailInput: TextInputEditText
+    private lateinit var mailInputErrorText: TextView
+    private lateinit var passwordInput: TextInputEditText
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,141 +48,177 @@ class Register_fragment : Fragment() {
 
         binding = RegisterFragmentBinding.inflate(inflater, container, false)
         return binding.root
-
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        selectedDepartments = arguments?.getSerializable("selectedDepartments") as? List<Departament>
+        selectedDepartments =
+            arguments?.getSerializable("selectedDepartments") as? List<Departament>
+
+        registerButton = binding.BtnRegisterInRegister
+        departamentsInput = binding.registerTextInputDepartamentos
+        nameInput = binding.registerTextInputNombre
+        nameInputErrorText = binding.nombreErrorTextView
+        mailInput = binding.registerTextInputMail
+        mailInputErrorText = binding.mailErrorTextView
+        passwordInput = binding.registerTextInputContracena
+        radioButton = binding.radioBtn
 
         onView()
     }
 
     private fun onView() {
-        val activity = activity as? MainActivity
-        activity?.setNavBarText("Registro")
+        disableRegisterButton()
+        setNavBarTitle()
         nameFocusListener()
         mailFocusListener()
-        initButtonListener()
+        initRegisterButtonListener()
         passwordTextChangeListener()
         initRadioButtonListener()
         departamentosOnFocusListener()
         setSelectedDepartments()
         removeDepartamentosHint()
+        disableAllInputs()
+        enableFormInputs()
+        mailTextChangeListener()
+        nameTextChangeListener()
     }
 
-    private fun removeDepartamentosHint(){
-        if (binding.registerTextInputDepartamentos.length() != 0){
+    private fun setNavBarTitle() {
+        val activity = activity as? MainActivity
+        activity?.setNavBarText("Registro")
+    }
+
+    private fun removeDepartamentosHint() {
+        if (departamentsInput.length() != 0) {
             binding.registerTextInputLayoutDepartamentos.hint = null
         }
     }
 
-    private fun setSelectedDepartments(){
+    private fun setSelectedDepartments() {
         if (selectedDepartments != null) {
-            println("selectedDepartments in frag $selectedDepartments")
             val selectedDepartmentNames = selectedDepartments!!.map { it.deptName }
             val concatenatedNames = selectedDepartmentNames.joinToString("/")
 
-            binding.registerTextInputDepartamentos.setText(concatenatedNames)
-            println("selectedDepartmentNames $selectedDepartmentNames")
-
+            departamentsInput.setText(concatenatedNames)
         } else {
             println("selectedDepartments do not exist")
         }
     }
 
-    private fun initButtonListener() {
-        val registerBtn = binding.BtnRegisterInRegister
-        registerBtn.setOnClickListener {
-            println("clicked Register")
-
+    private fun initRegisterButtonListener() {
+        registerButton.setOnClickListener {
             AlertDialog.Builder(requireContext())
-                .setMessage("Dialog`Works")
-                .setPositiveButton("CONTINUAR"){_,_ ->
+                .setMessage("Sending details to server")
+                .setPositiveButton("CONTINUAR") { _, _ ->
                 }
+                .create()
                 .show()
         }
     }
 
-    private fun initRadioButtonListener(){
-        val radioButton: MaterialRadioButton = binding.radioBtn
+    private fun initRadioButtonListener() {
+//
 
         radioButton.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                println("button checked")
                 radioButton.buttonTintList =
-                    context?.let { ContextCompat.getColorStateList(it, com.example.rudonews.R.color.fucia) }
+                    context?.let {
+                        ContextCompat.getColorStateList(it, R.color.fucia)
+                    }
+                enableRegisterButton()
             } else {
                 radioButton.buttonTintList =
-                    context?.let { ContextCompat.getColorStateList(it, com.example.rudonews.R.color.Error) }
+                    context?.let { ContextCompat.getColorStateList(it, R.color.Error) }
+                disableRegisterButton()
             }
         }
-
-
     }
 
     private fun mailFocusListener() {
-        binding.registerTextInputMail.setOnFocusChangeListener { _, focused ->
+        mailInput.setOnFocusChangeListener { _, focused ->
             if (!focused) {
-                binding.mailErrorTextView.setText(validateMail())
+                mailInputErrorText.text = validateMail()
             }
         }
     }
 
     private fun nameFocusListener() {
-        binding.registerTextInputNombre.setOnFocusChangeListener { _, focused ->
+        nameInput.setOnFocusChangeListener { _, focused ->
             if (!focused) {
-                binding.nombreErrorTextView.setText(validateName())
+                nameInputErrorText.text = validateName()
             }
         }
     }
 
     private fun validateMail(): String? {
-        var emailText = binding.registerTextInputMail.text.toString()
-        if (!emailText.matches(Regex("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"))) {
-            binding.registerTextInputLayoutMail.boxStrokeColor =
-                context?.getColor(R.color.Error) ?: R.color.fucia
-            binding.mailErrorImageView.visibility = View.VISIBLE
-            binding.registerTextInputLayoutMail.boxBackgroundColor =
-                context?.getColor(R.color.ErrorInputBg) ?: R.color.fucia
-            return "Invalid email format"
-        } else
-            binding.registerTextInputLayoutMail.boxStrokeColor =
-                context?.getColor(R.color.fucia) ?: R.color.fucia
-        binding.mailErrorImageView.visibility = View.GONE
-        binding.registerTextInputLayoutMail.boxBackgroundColor =
-            context?.getColor(R.color.white) ?: R.color.fucia
+        val emailText = mailInput.text.toString()
+        val isValidEmail = emailText.matches(Regex("^.+@.+\\..+\$"))
 
-        return null
+        with(binding.registerTextInputLayoutMail) {
+            boxStrokeColor = if (!isValidEmail) context?.getColor(R.color.Error)
+                ?: R.color.fucia else context?.getColor(R.color.fucia) ?: R.color.fucia
+            boxBackgroundColor = if (!isValidEmail) context?.getColor(R.color.ErrorInputBg)
+                ?: R.color.fucia else context?.getColor(R.color.white) ?: R.color.fucia
+        }
+
+        binding.mailErrorImageView.visibility = if (!isValidEmail) View.VISIBLE else View.GONE
+
+        return if (!isValidEmail) "Invalid email format" else null
     }
 
     private fun validateName(): String? {
-        var nameText = binding.registerTextInputNombre.text.toString()
-        if (nameText.isEmpty()) {
-            binding.registerTextInputLayoutNombre.boxStrokeColor =
-                context?.getColor(R.color.Error) ?: R.color.fucia
-            binding.nombreErrorImageView.visibility = View.VISIBLE
-            binding.registerTextInputLayoutNombre.boxBackgroundColor =
-                context?.getColor(R.color.ErrorInputBg) ?: R.color.fucia
-            return "Este campo no puede quedar vacío"
-        } else binding.registerTextInputLayoutNombre.boxStrokeColor =
-            context?.getColor(R.color.fucia) ?: R.color.fucia
-        binding.nombreErrorImageView.visibility = View.GONE
-        binding.registerTextInputLayoutNombre.boxBackgroundColor =
-            context?.getColor(R.color.white) ?: R.color.fucia
-        return null
+        val nameText = nameInput.text.toString()
+        val isEmpty = nameText.isEmpty()
+
+        with(binding.registerTextInputLayoutNombre) {
+            boxStrokeColor = if (isEmpty) context?.getColor(R.color.Error)
+                ?: R.color.fucia else context?.getColor(R.color.fucia) ?: R.color.fucia
+            boxBackgroundColor = if (isEmpty) context?.getColor(R.color.ErrorInputBg)
+                ?: R.color.fucia else context?.getColor(R.color.white) ?: R.color.fucia
+        }
+
+        binding.nombreErrorImageView.visibility = if (isEmpty) View.VISIBLE else View.GONE
+
+        return if (isEmpty) "Este campo no puede quedar vacío" else null
     }
 
-    private fun passwordTextChangeListener(){
+    private fun nameTextChangeListener() {
+        nameInput.addTextChangedListener(object : TextWatcher {
 
-        binding.registerTextInputContracena.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                checkIfFormValid()
+            }
+        })
+
+    }
+
+    private fun mailTextChangeListener() {
+        mailInput.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                checkIfFormValid()
+            }
+        })
+    }
+
+    private fun passwordTextChangeListener() {
+
+        passwordInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
 
             override fun onTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                passwordText = binding.registerTextInputContracena.text.toString()
+                passwordText = passwordInput.text.toString()
+
 
                 updateUIForValidation(
                     binding.textViewMayuscula,
@@ -201,6 +250,8 @@ class Register_fragment : Fragment() {
                     passwordText.matches(Regex(".*[@#\$%^&+=!].*"))
                 )
 
+                checkIfFormValid()
+
             }
 
             private fun updateUIForValidation(
@@ -209,13 +260,15 @@ class Register_fragment : Fragment() {
                 isValid: Boolean
             ) {
                 val textColor = if (isValid) R.color.ValidationBoxText else R.color.Grey
-                val backgroundColor = if (isValid) R.color.ValidationBoxTrue else R.color.AppBackground
+                val backgroundColor =
+                    if (isValid) R.color.ValidationBoxTrue else R.color.AppBackground
 
                 textView.setTextColor(resources.getColor(textColor))
                 textView.setBackgroundColor(resources.getColor(backgroundColor))
                 cardView.strokeColor = (resources.getColor(textColor))
 
             }
+
             override fun afterTextChanged(s: Editable?) {
 
             }
@@ -223,12 +276,91 @@ class Register_fragment : Fragment() {
 
     }
 
-    private fun departamentosOnFocusListener(){
-         binding.registerTextInputDepartamentos.setOnFocusChangeListener { _, focused ->
-             ( activity as? MainActivity)?.navigateToDepartamentosFragment()
-
+    private fun departamentosOnFocusListener() {
+        departamentsInput.setOnFocusChangeListener { _, focused ->
+            (activity as? MainActivity)?.navigateToDepartamentosFragment()
         }
     }
 
+    private fun disableRegisterButton() {
+        registerButton.isEnabled = false
+        registerButton.setBackgroundColor(resources.getColor(R.color.fucia_disabled))
+    }
 
+    private fun enableRegisterButton() {
+        registerButton.isEnabled = true
+        registerButton.setBackgroundColor(resources.getColor(R.color.fucia))
+    }
+
+    private fun disableAllInputs() {
+        nameInput.isEnabled = false
+        nameInput.setBackgroundColor(resources.getColor(R.color.soft_grey))
+
+        mailInput.isEnabled = false
+        mailInput.setBackgroundColor(resources.getColor(R.color.soft_grey))
+
+        passwordInput.isEnabled = false
+        passwordInput.setBackgroundColor(resources.getColor(R.color.soft_grey))
+
+        disableRadioBtn()
+    }
+
+    private fun enableFormInputs() {
+
+        if (binding.registerTextInputDepartamentos.text.isNullOrBlank()) {
+            nameInput.isEnabled = false
+            nameInput.setBackgroundColor(resources.getColor(R.color.soft_grey))
+
+            mailInput.isEnabled = false
+            mailInput.setBackgroundColor(resources.getColor(R.color.soft_grey))
+
+            passwordInput.isEnabled = false
+            passwordInput.setBackgroundColor(resources.getColor(R.color.soft_grey))
+        } else {
+            nameInput.isEnabled = true
+            nameInput.setBackgroundColor(resources.getColor(R.color.AppBackground))
+
+            mailInput.isEnabled = true
+            mailInput.setBackgroundColor(resources.getColor(R.color.AppBackground))
+
+            passwordInput.isEnabled = true
+            passwordInput.setBackgroundColor(resources.getColor(R.color.AppBackground))
+        }
+    }
+
+    private fun checkIfFormValid() {
+
+        val passwordRegex =
+            Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#\$%^&+=!])(?=.*[a-zA-Z]).{8,}$")
+        val emailRegex = Regex("^.+@.+\\..+\$")
+
+        if (!departamentsInput.text.isNullOrBlank() && !nameInput.text.isNullOrBlank() && nameInputErrorText.text.isNullOrBlank() && !mailInput.text.isNullOrBlank() &&
+            mailInputErrorText.text.isNullOrBlank() && passwordInput.text?.matches(passwordRegex) == true && mailInput.text?.matches(
+                emailRegex
+            ) == true
+        ) {
+            enableRadioBtn()
+            if (radioButton.isChecked) {
+                enableRegisterButton()
+            }
+        } else {
+            disableRadioBtn()
+            disableRegisterButton()
+        }
+    }
+
+    private fun disableRadioBtn() {
+        radioButton.isEnabled = false
+        radioButton.buttonTintList = context?.let { ContextCompat.getColorStateList(it, R.color.soft_grey) }
+    }
+
+    private fun enableRadioBtn() {
+        radioButton.isEnabled = true
+
+        if (radioButton.isChecked) {
+            radioButton.buttonTintList = context?.let { ContextCompat.getColorStateList(it, R.color.fucia) }
+        } else {
+            radioButton.buttonTintList = context?.let { ContextCompat.getColorStateList(it, R.color.Grey) }
+        }
+    }
 }
