@@ -113,7 +113,6 @@ class Register_fragment : Fragment() {
                 .setMessage("Sending details to server")
                 .setPositiveButton("CONTINUAR") { _, _ ->
                 }
-                .create()
                 .show()
         }
     }

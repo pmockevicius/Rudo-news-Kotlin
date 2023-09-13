@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import com.example.rudonews.MainActivity
 import com.example.rudonews.R
 import com.example.rudonews.data.dataSource.auth.MockAuthDatasource
@@ -33,6 +34,7 @@ class Login_fragment : Fragment() {
     private lateinit var loginButton: Button
     private lateinit var registerButton: Button
     private lateinit var dialogOverlayView: View
+    private lateinit var olvidadoContrasena: TextView
 
 
 
@@ -59,18 +61,32 @@ class Login_fragment : Fragment() {
         passwordEditText = view.findViewById(R.id.textInputPassword)
         loginButton = view.findViewById(R.id.BtnLogin)
         registerButton = view.findViewById(R.id.BtnRegister)
+        olvidadoContrasena = view.findViewById(R.id.textViewOlvidad)
 
         dialogOverlayView = layoutInflater.inflate(R.layout.dialog_overlay, null)
 
         onView()
+
+    }
+
+    private fun onView() {
+        disableButton()
+        setNavBarTitle()
         initTextChangeListeners()
         initLoginClickListener()
         initRegisterClickListener()
+        initOlvidadClickListener()
     }
 
     private fun initRegisterClickListener() {
         registerButton.setOnClickListener {
             (activity as? MainActivity)?.navigateToRegisterPage()
+        }
+    }
+
+    private fun initOlvidadClickListener(){
+        olvidadoContrasena.setOnClickListener{
+            (activity as? MainActivity)?.navigateToOlvidadFragment()
         }
     }
 
@@ -95,11 +111,7 @@ class Login_fragment : Fragment() {
         }
     }
 
-    fun onView() {
-        disableButton()
-        setNavBarTitle()
 
-    }
     private fun initTextChangeListeners() {
 
         emailEditText.addTextChangedListener(object : TextWatcher {

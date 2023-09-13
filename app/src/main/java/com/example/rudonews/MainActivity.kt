@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import com.example.rudonews.databinding.ActivityMainBinding
+import com.example.rudonews.presentation.contrasena_olvidad.Contrasena_Olvidad_Fragment
 import com.example.rudonews.presentation.departamentos.Departamentos_Fragment
 import com.example.rudonews.presentation.login.Login_fragment
 import com.example.rudonews.presentation.register.Register_fragment
@@ -69,6 +70,13 @@ class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedList
     fun navigateToDepartamentosFragment(){
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, Departamentos_Fragment())
+            .addToBackStack(null)
+            .commit()
+    }
+
+    fun navigateToOlvidadFragment(){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, Contrasena_Olvidad_Fragment() )
             .addToBackStack(null)
             .commit()
     }

@@ -23,4 +23,8 @@
         <item name="buttonTint">@color/Grey</item>
     </style>
 
+    <style name="dialogButtonStyle" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:textColor">@color/fucia</item>
+    </style>
+
 </resources>

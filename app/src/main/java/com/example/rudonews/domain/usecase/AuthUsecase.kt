@@ -6,11 +6,12 @@ import com.example.rudonews.domain.entity.User
 interface AuthUsecaseInterface{
     suspend fun loginUser()
     suspend fun checkLoginCredentials(mail:String, password: String):Boolean
+
+    suspend fun resetPassword(mail: String): Boolean
 }
 
 class AuthUsecase(val authRepository: AuthRepository): AuthUsecaseInterface {
     override suspend fun loginUser() {
-        println("We are in usecase")
         authRepository.getUsers()
     }
 
@@ -29,5 +30,13 @@ class AuthUsecase(val authRepository: AuthRepository): AuthUsecaseInterface {
         return userExists
     }
 
+    override suspend fun resetPassword(mail: String): Boolean {
+        val users: List<User> = authRepository.getUsers()
+
+        println("mail $mail")
+        println("user exists ${users.any { it.email == mail }} ")
+
+        return users.any { it.email == mail }
+    }
 
 }

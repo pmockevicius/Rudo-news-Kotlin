@@ -1,17 +1,17 @@
 package com.example.rudonews.utils.helpers
 
+import android.app.AlertDialog
 import android.content.Context
 import com.example.rudonews.R
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class DialogHelper {
 
     companion object {
 
         fun showAlertDialog(context: Context, message: String) {
-            MaterialAlertDialogBuilder(context)
+            AlertDialog.Builder(context, R.style.dialogButtonStyle)
                 .setMessage(message)
-                .setPositiveButton("ACEPTAR") { dialog, which ->
+                .setPositiveButton("ACEPTAR") { _, _ ->
                 }
                 .show()
 
