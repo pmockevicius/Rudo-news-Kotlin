@@ -4,16 +4,25 @@ import com.example.rudonews.domain.usecase.AuthUsecase
 
 
 interface LoginViewModelInterface {
-    suspend fun checkLoginCredentials(mail: String, password: String): Boolean
+suspend fun logingUser(mail:String, password: String) :Boolean
 }
 
 class LoginViewModel(val usecase: AuthUsecase) : LoginViewModelInterface{
 
-    override suspend fun checkLoginCredentials(mail:String, password: String) :Boolean{
+    override suspend fun logingUser(mail:String, password: String) :Boolean{
+        var response = usecase.checkLoginCredentials(mail, password)
 
-        return usecase.checkLoginCredentials(mail, password)
+        return response
+
+
+//        return if (response) {
+//            "Credentials are correct, Logging in!!!"
+//        } else
+
 
     }
+
+
 
 
 }

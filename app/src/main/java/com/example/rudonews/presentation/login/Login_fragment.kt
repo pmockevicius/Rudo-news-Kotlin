@@ -1,5 +1,6 @@
 package com.example.rudonews.presentation.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.example.rudonews.LoggedInActivity
 import com.example.rudonews.MainActivity
 import com.example.rudonews.R
 import com.example.rudonews.data.dataSource.auth.MockAuthDatasource
@@ -18,6 +20,7 @@ import com.example.rudonews.domain.usecase.AuthUsecase
 import com.example.rudonews.utils.helpers.DialogHelper.Companion.showAlertDialog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
@@ -36,7 +39,7 @@ class Login_fragment : Fragment() {
     private lateinit var dialogOverlayView: View
     private lateinit var olvidadoContrasena: TextView
 
-
+    val scope = MainScope()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,8 +87,8 @@ class Login_fragment : Fragment() {
         }
     }
 
-    private fun initOlvidadClickListener(){
-        olvidadoContrasena.setOnClickListener{
+    private fun initOlvidadClickListener() {
+        olvidadoContrasena.setOnClickListener {
             (activity as? MainActivity)?.navigateToOlvidadFragment()
         }
     }
@@ -96,16 +99,16 @@ class Login_fragment : Fragment() {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
 
-            val response = GlobalScope.async(Dispatchers.IO) {
-                viewModel.checkLoginCredentials(email, password)
-            }
+            scope.launch {
+                var response = viewModel.logingUser(email, password)
 
-            GlobalScope.launch(Dispatchers.Main) {
-                val result = response.await()
-                if (result) {
-                    showAlertDialog(requireContext(), "Email and password are correct, LOGGING IN")
+                if (response){
+//                    (activity as? MainActivity)?.navigateToNoticiasFragment()
+
+                    val intent = Intent(requireContext(), LoggedInActivity::class.java)
+                    startActivity(intent)
                 } else {
-                    showAlertDialog(requireContext(), "Wrong credentials, try again")
+                    showAlertDialog(requireContext(), "No hay ninguna cuenta registrada con este mail, revisa que has introducido el mail i contraseña correctamente.")
                 }
             }
         }
@@ -140,7 +143,7 @@ class Login_fragment : Fragment() {
         })
     }
 
-    private fun enableButton(){
+    private fun enableButton() {
         if (emailEditText.text.isNullOrBlank() || passwordEditText.text.isNullOrBlank()) {
             loginButton.isEnabled = false
             loginButton.setBackgroundColor(resources.getColor(R.color.fucia_disabled))
@@ -150,12 +153,12 @@ class Login_fragment : Fragment() {
         }
     }
 
-    private fun disableButton(){
+    private fun disableButton() {
         loginButton.isEnabled = false
         loginButton.setBackgroundColor(resources.getColor(R.color.fucia_disabled))
     }
 
-    private fun setNavBarTitle(){
+    private fun setNavBarTitle() {
         val activity = activity as? MainActivity
         activity?.setNavBarText("Iniciar sesión")
     }

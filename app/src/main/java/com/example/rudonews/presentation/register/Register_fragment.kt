@@ -293,13 +293,13 @@ class Register_fragment : Fragment() {
 
     private fun disableAllInputs() {
         nameInput.isEnabled = false
-        nameInput.setBackgroundColor(resources.getColor(R.color.soft_grey))
+        nameInput.setBackgroundColor(resources.getColor(R.color.Grey))
 
         mailInput.isEnabled = false
-        mailInput.setBackgroundColor(resources.getColor(R.color.soft_grey))
+        mailInput.setBackgroundColor(resources.getColor(R.color.whiteDisabled))
 
         passwordInput.isEnabled = false
-        passwordInput.setBackgroundColor(resources.getColor(R.color.soft_grey))
+        passwordInput.setBackgroundColor(resources.getColor(R.color.whiteDisabled))
 
         disableRadioBtn()
     }
@@ -308,22 +308,22 @@ class Register_fragment : Fragment() {
 
         if (binding.registerTextInputDepartamentos.text.isNullOrBlank()) {
             nameInput.isEnabled = false
-            nameInput.setBackgroundColor(resources.getColor(R.color.soft_grey))
+            nameInput.setBackgroundColor(resources.getColor(R.color.soft_grey_disabled))
 
             mailInput.isEnabled = false
-            mailInput.setBackgroundColor(resources.getColor(R.color.soft_grey))
+            mailInput.setBackgroundColor(resources.getColor(R.color.soft_grey_disabled))
 
             passwordInput.isEnabled = false
-            passwordInput.setBackgroundColor(resources.getColor(R.color.soft_grey))
+            passwordInput.setBackgroundColor(resources.getColor(R.color.soft_grey_disabled))
         } else {
             nameInput.isEnabled = true
-            nameInput.setBackgroundColor(resources.getColor(R.color.AppBackground))
+            nameInput.setBackgroundColor(resources.getColor(R.color.white))
 
             mailInput.isEnabled = true
-            mailInput.setBackgroundColor(resources.getColor(R.color.AppBackground))
+            mailInput.setBackgroundColor(resources.getColor(R.color.white))
 
             passwordInput.isEnabled = true
-            passwordInput.setBackgroundColor(resources.getColor(R.color.AppBackground))
+            passwordInput.setBackgroundColor(resources.getColor(R.color.white))
         }
     }
 

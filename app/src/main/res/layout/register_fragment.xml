@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/AppBackground">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -257,7 +258,8 @@
                 android:layout_weight="1"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/Grey">
+                app:strokeColor="@color/Grey"
+                android:backgroundTint="@color/AppBackground">
 
                 <TextView
                     android:id="@+id/textViewMayuscula"
@@ -267,7 +269,8 @@
                     android:gravity="center"
                     android:paddingVertical="8dp"
                     android:text="MAYÚSCULA"
-                    android:textColor="@color/Grey" />
+                    android:textColor="@color/Grey"
+                     />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView

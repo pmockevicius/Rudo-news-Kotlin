@@ -1,5 +1,6 @@
 package com.example.rudonews.domain.usecase
 
+import com.example.rudonews.MainActivity
 import com.example.rudonews.data.repository.AuthRepository
 import com.example.rudonews.domain.entity.User
 
@@ -12,7 +13,7 @@ interface AuthUsecaseInterface{
 
 class AuthUsecase(val authRepository: AuthRepository): AuthUsecaseInterface {
     override suspend fun loginUser() {
-        authRepository.getUsers()
+
     }
 
     override suspend fun checkLoginCredentials(mail: String, password: String): Boolean {
@@ -27,14 +28,15 @@ class AuthUsecase(val authRepository: AuthRepository): AuthUsecaseInterface {
             }
         }
 
+        if (userExists){
+            loginUser()
+        }
+
         return userExists
     }
 
     override suspend fun resetPassword(mail: String): Boolean {
         val users: List<User> = authRepository.getUsers()
-
-        println("mail $mail")
-        println("user exists ${users.any { it.email == mail }} ")
 
         return users.any { it.email == mail }
     }
