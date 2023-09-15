@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rudonews.MainActivity
@@ -14,14 +16,18 @@ import com.example.rudonews.data.repository.DataRepository
 import com.example.rudonews.databinding.FragmentDepartamentosBinding
 import com.example.rudonews.domain.entity.Departament
 import com.example.rudonews.domain.usecase.DataUsecase
-import com.example.rudonews.presentation.departamentos.DepartamentoViewHolder
 import com.example.rudonews.presentation.register.Register_fragment
+import kotlinx.coroutines.launch
 
 
 class Departamentos_Fragment : Fragment() {
 
     private lateinit var binding: FragmentDepartamentosBinding
     private lateinit var departments: List<Departament>
+    private lateinit var lifecycleScope: LifecycleCoroutineScope
+
+
+
 
     private lateinit var viewModel: DepartamentosViewModel
     private lateinit var dataUsecase: DataUsecase
@@ -42,6 +48,8 @@ class Departamentos_Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        lifecycleScope = viewLifecycleOwner.lifecycleScope
+
         binding = FragmentDepartamentosBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,8 +58,11 @@ class Departamentos_Fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setNavBarTitle()
-        setupRecyclerView()
         initDepAcceptBtnListener()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            setupRecyclerView()
+        }
     }
 
     private fun setNavBarTitle(){
@@ -81,7 +92,7 @@ class Departamentos_Fragment : Fragment() {
         }
     }
 
-    fun setupRecyclerView() {
+suspend fun setupRecyclerView() {
         val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerViewDepartamentos)
         if (recyclerView != null) {
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -95,7 +106,7 @@ class Departamentos_Fragment : Fragment() {
 
     }
 
-    fun getDepartments(): List<Departament> {
+    suspend fun getDepartments(): List<Departament> {
          var departments = viewModel.getDepartaments()
         println("departamentos $departments")
         return departments

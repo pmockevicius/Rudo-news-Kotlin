@@ -6,11 +6,11 @@ import com.example.rudonews.domain.usecase.DataUsecase
 
 
 interface DepartamentosViewModelInterface{
-    fun getDepartaments(): List<Departament>
+    suspend fun getDepartaments(): List<Departament>
 }
 
 class DepartamentosViewModel(val dataUsecase: DataUsecase) : DepartamentosViewModelInterface {
-    override fun getDepartaments(): List<Departament> {
+    override suspend fun getDepartaments(): List<Departament> {
         return dataUsecase.getDepartments()
     }
 

@@ -5,7 +5,7 @@ import com.example.rudonews.domain.entity.User
 
 class MockAuthDatasource() : AuthDatasourceInterface {
 
-    override fun getMockUsers(): List<User> {
+    override fun getUsers(): List<User> {
         println("getting users from mock")
 
         val users = mutableListOf<User>()
@@ -16,4 +16,6 @@ class MockAuthDatasource() : AuthDatasourceInterface {
         users.add(User("user4@example.com", "password4"))
         return users
     }
+
+
 }
