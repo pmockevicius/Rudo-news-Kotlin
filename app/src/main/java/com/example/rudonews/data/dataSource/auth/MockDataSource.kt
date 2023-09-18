@@ -2,6 +2,7 @@ package com.example.rudonews.data.dataSource.auth
 
 import com.example.rudonews.domain.entity.Departament
 import com.example.rudonews.domain.entity.Noticia
+import com.example.rudonews.domain.entity.Tag
 import com.example.rudonews.domain.entity.User
 
 
@@ -36,6 +37,22 @@ class MockDataSource() : DataSourceInterface {
         )
     }
 
+
+    override suspend fun getTags(): List<Tag> {
+     return listOf(
+         Tag("Sport"),
+         Tag("Ocio"),
+         Tag("Gaming"),
+         Tag("Comida"),
+         Tag("Gaming"),
+         Tag("Depotrte"),
+         Tag("Travel"),
+         Tag("Animals"),
+     )
+
+    }
+
+
     override suspend fun getNoticias(): List<Noticia> {
         println("getting noticias from mock")
 
@@ -47,7 +64,9 @@ class MockDataSource() : DataSourceInterface {
                 "Title 1",
                 "01-01-2023",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce cursus sollicitudin pulvinar. Praesent aliquam nec elit vitae iaculis. Etiam consequat augue quis laoreet euismod. Etiam fermentum sodales lorem a lacinia. Donec iaculis dui eget orci egestas, ac pharetra magna viverra. ",
-                "Tag 1"
+                "Sport",
+                 "This release focuses on some build improvements and Compose. The two major Compose improvements are adding support for Compose specific transitions (e.g. cross fade) and supporting recomposition based on request state using GlideSubcomposition. "
+
             )
         )
 
@@ -57,7 +76,8 @@ class MockDataSource() : DataSourceInterface {
                 "Title 2",
                 "01-01-2023",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce cursus sollicitudin pulvinar. Praesent aliquam nec elit vitae iaculis. Eti",
-                "Tag 2"
+                "Gaming",
+                "This release focuses on some build improvements and Compose. The two major Compose improvements are adding support for Compose specific transitions (e.g. cross fade) and supporting recomposition based on request state using GlideSubcomposition. "
             )
         )
 
@@ -67,27 +87,30 @@ class MockDataSource() : DataSourceInterface {
                 "Title 3",
                 "01-01-2023",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce cursus sollicitudin pulvinar. Praesent aliquam nec elit vitae iaculis. Eti",
-                "Tag 3"
+                "Ocio",
+                "This release focuses on some build improvements and Compose. The two major Compose improvements are adding support for Compose specific transitions (e.g. cross fade) and supporting recomposition based on request state using GlideSubcomposition. "
             )
         )
 
         noticias.add(
             Noticia(
-                "image_url_4",
+                "https://www.incibe.es/sites/default/files/images/blog/portada_fake_news_0.png",
                 "Title 4",
                 "01-01-2023",
                 "Mauris id viverra metus. Nulla mollis orci nec euismod egestas. Aenean auctor leo dapibus, vestibulum leo et, condimentum ligula. Pellentesque ultricies odio sed sapien congue sodales. Aenean vitae pulvinar tellus. In aliquet id sem ac fringilla. Nunc fringilla lacus at ante fermentum pelle",
-                "Tag 4"
+                "Comida",
+                "This release focuses on some build improvements and Compose. The two major Compose improvements are adding support for Compose specific transitions (e.g. cross fade) and supporting recomposition based on request state using GlideSubcomposition. "
             )
         )
 
         noticias.add(
             Noticia(
-                "image_url_5",
+                "https://media.istockphoto.com/id/1198835856/es/vector/noticias-falsas-o-escaneo-de-hechos-con-ilustraci%C3%B3n-vectorial-de-lupa-ilustraci%C3%B3n-vectorial.jpg?s=1024x1024&w=is&k=20&c=Fr0WfR8kcLj9UyBUcULyc7Fcge0mQ0-pfrSaylTq61Y=",
                 "Title 5",
                 "01-01-2023",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce cursus sollicitudin pulvinar. 5",
-                "Tag 5"
+                "Sport",
+                "This release focuses on some build improvements and Compose. The two major Compose improvements are adding support for Compose specific transitions (e.g. cross fade) and supporting recomposition based on request state using GlideSubcomposition. "
             )
         )
 

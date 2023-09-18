@@ -5,5 +5,6 @@ class Noticia (
     val title: String,
     val date: String,
     val description: String,
-    val tag: String
+    val tag: String,
+    val body: String
 )

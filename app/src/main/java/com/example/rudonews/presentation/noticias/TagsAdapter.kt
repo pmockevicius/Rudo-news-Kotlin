@@ -2,11 +2,13 @@ package com.example.rudonews.presentation.noticias
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rudonews.R
+import com.example.rudonews.domain.entity.Tag
 
 
-class TagsAdapter(private val dataList: List<String>) : RecyclerView.Adapter<TagsViewHolder>() {
+class TagsAdapter(private val dataList: List<Tag>, private val tagPressed: ((tag: String) -> Unit)) : RecyclerView.Adapter<TagsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_tag, parent, false)
@@ -14,8 +16,7 @@ class TagsAdapter(private val dataList: List<String>) : RecyclerView.Adapter<Tag
     }
 
     override fun onBindViewHolder(holder: TagsViewHolder, position: Int) {
-        holder.textView.text = dataList[position]
-//        holder.imageView.setImageResource()
+        holder.bind(dataList[position], dataList, tagPressed)
     }
 
     override fun getItemCount(): Int {

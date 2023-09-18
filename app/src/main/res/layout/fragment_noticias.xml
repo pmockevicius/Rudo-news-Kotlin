@@ -25,6 +25,8 @@
 
         />
 
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/TagsRecyclerView"
         android:layout_width="match_parent"
@@ -35,12 +37,26 @@
         android:layout_marginTop="16dp"
         />
 
+    <TextView
+        android:id="@+id/filtrosTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aplicar filtros"
+        android:textColor="@color/fucia"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/TagsRecyclerView"
+        app:layout_constraintBottom_toTopOf="@id/NoticiasRecyclerView"
+        android:layout_marginVertical="15dp"
+        android:visibility="gone"
+        android:textSize="14sp"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/NoticiasRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TagsRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/filtrosTextView"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
         />

@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.rudonews.R
 
 class NoticiasViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val noticiaCardView: CardView = itemView.findViewById(R.id.noticiaCardView)
-    val textView: TextView = itemView.findViewById(R.id.noticiaCardTitle)
+    val tagText: TextView = itemView.findViewById(R.id.tagText)
+    val title: TextView = itemView.findViewById(R.id.noticiaCardTitle)
     val imageView: ImageView = itemView.findViewById(R.id.noticiaImageView)
+    val notciaDate: TextView = itemView.findViewById(R.id.noticiaPostedDate)
+    val description: TextView = itemView.findViewById(R.id.noticiaDescription)
 }

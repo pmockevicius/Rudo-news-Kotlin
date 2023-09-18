@@ -22,7 +22,6 @@ class DepartamentoViewHolder(itemView: View, private val departamentos: List<Dep
             if (isChecked) {
                 itemView.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.SoftPink))
             } else {
-//                println("${departamentoNameTextView.text.toString()} checked")
                 itemView.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.AppBackground))
             }
         }

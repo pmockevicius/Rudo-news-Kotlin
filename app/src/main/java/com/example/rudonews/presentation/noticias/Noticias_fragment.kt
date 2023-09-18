@@ -8,26 +8,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.widget.SearchView
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.distinctUntilChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rudonews.LoggedInActivity
-import com.example.rudonews.MainActivity
-import com.example.rudonews.R
-import com.example.rudonews.data.dataSource.auth.MockAuthDatasource
 import com.example.rudonews.data.dataSource.auth.MockDataSource
-import com.example.rudonews.data.repository.AuthRepository
 import com.example.rudonews.data.repository.DataRepository
 import com.example.rudonews.databinding.FragmentNoticiasBinding
-import com.example.rudonews.databinding.RegisterFragmentBinding
 import com.example.rudonews.domain.entity.Noticia
-import com.example.rudonews.domain.usecase.AuthUsecase
+import com.example.rudonews.domain.entity.Tag
 import com.example.rudonews.domain.usecase.DataUsecase
-import com.example.rudonews.presentation.login.LoginViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class Noticias_fragment : Fragment() {
@@ -37,13 +33,15 @@ class Noticias_fragment : Fragment() {
     private lateinit var dataRepository: DataRepository
     private lateinit var mockDatasource: MockDataSource
 
-lateinit var binding: FragmentNoticiasBinding
-lateinit var noticiasSearchView : android.widget.SearchView
-    lateinit var noticiasRecyclerView: RecyclerView
-    lateinit var noticiasAdapter: NoticiasAdapter
-    lateinit var dataList: List<String>
+    private lateinit var binding: FragmentNoticiasBinding
+    private lateinit var noticiasSearchView: android.widget.SearchView
+    private lateinit var noticiasAdapter: NoticiasAdapter
+    private lateinit var dataList: List<Noticia>
+    private lateinit var tagsMessage: TextView
 
     val scope = MainScope()
+    var selectedTags: MutableList<String> = mutableListOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -51,7 +49,6 @@ lateinit var noticiasSearchView : android.widget.SearchView
         dataRepository = DataRepository(mockDatasource)
         dataUsecase = DataUsecase(dataRepository)
         viewModel = NoticiasViewModel(dataUsecase)
-
     }
 
     override fun onCreateView(
@@ -66,89 +63,122 @@ lateinit var noticiasSearchView : android.widget.SearchView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        onView()
+        tagsMessage = binding.filtrosTextView
+
+        scope.launch (  Dispatchers.IO){
+            onView()
+        }
+
+
     }
 
-    private fun onView(){
-        initObservers()
+    private suspend fun onView() {
+//        initObservers()
         setNavbarTitle()
         setSearchViewListener()
+        getNoticias()
         initNoticiasRecyclerView()
         initTagsRecyclerView()
-        getNoticias()
-    }
+}
 
-    private fun initObservers() {
-        val observer = Observer<List<Noticia>> {
-            println("response in fragment ${it.size} blablabla")
+//    private fun initObservers() {
+//        val observer = Observer<List<Noticia>> {
+//            println("response in fragment ${it.size} blablabla")
+//        }
+//        with(viewModel) {
+//            news.distinctUntilChanged()
+//                .observe(viewLifecycleOwner, observer)
+//
+//        }
+//    }
+
+private suspend fun initNoticiasRecyclerView() {
+    val recyclerView: RecyclerView = binding.NoticiasRecyclerView
+//         dataList = listOf("Item 1", "Item 2", "Item 3", "Item 3", "Item 3", "Item 3") // Your data source
+    dataList = viewModel.getNoticias()
+    noticiasAdapter = NoticiasAdapter(dataList)
+
+    recyclerView.adapter = noticiasAdapter
+    recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+}
+
+suspend fun initTagsRecyclerView() {
+    val recyclerView: RecyclerView = binding.TagsRecyclerView
+    val tagsList = viewModel.getTags()
+    val tagPressed: ((tag: String) -> Unit) = { tag ->
+        saveTag(tag)
+    }
+    val adapter = TagsAdapter(tagsList, tagPressed)
+
+    recyclerView.adapter = adapter
+
+    recyclerView.layoutManager =
+        LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+}
+
+    private fun saveTag(tag: String) {
+        selectedTags.run {
+            if (contains(tag)) remove(tag) else add(tag)
         }
-        with(viewModel) {
-            news.distinctUntilChanged()
-                .observe(viewLifecycleOwner, observer)
-
+        if (selectedTags.isNotEmpty()){
+            tagsMessage.visibility = View.VISIBLE
+        }else {
+            tagsMessage.visibility = View.GONE
         }
-    }
 
-    private fun initNoticiasRecyclerView(){
-        val recyclerView: RecyclerView = binding.NoticiasRecyclerView
-         dataList = listOf("Item 1", "Item 2", "Item 3", "Item 3", "Item 3", "Item 3") // Your data source
-        noticiasAdapter = NoticiasAdapter(dataList)
 
-        recyclerView.adapter = noticiasAdapter
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
     }
 
-    fun initTagsRecyclerView(){
-        val recyclerView: RecyclerView = binding.TagsRecyclerView
-        val dataList = listOf("Item 1", "Item 2", "Item 3", "Item 3", "Item 3", "Item 3") // Your data source
-        val adapter = TagsAdapter(dataList)
 
-        recyclerView.adapter = adapter
+private fun setNavbarTitle() {
+    val activity = activity as? LoggedInActivity
+    activity?.setNavBarText("Noticias")
+}
 
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(),  LinearLayoutManager.HORIZONTAL, false)
+private fun setSearchViewListener() {
+    noticiasSearchView = binding.noticiasSearchView
 
-    }
+    noticiasSearchView.setOnQueryTextListener(object :
+        android.widget.SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String?): Boolean {
+            noticiasSearchView.clearFocus()
 
-    private fun setNavbarTitle(){
-        val activity = activity as? LoggedInActivity
-        activity?.setNavBarText("Noticias")
-    }
-
-    private fun setSearchViewListener() {
-        noticiasSearchView = binding.noticiasSearchView
-
-        noticiasSearchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-               noticiasSearchView.clearFocus()
-
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                filterData(newText)
-                return true
-            }
-        })
-    }
-
-    private fun filterData(query: String?) {
-        val filteredData = dataList.filter {
-            it.contains(query.orEmpty(), ignoreCase = true)
+            return true
         }
-       noticiasAdapter.submitFilteredData(filteredData)
-    }
 
-    private fun hideKeyboard() {
-        val inputMethodManager =
-            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(noticiasSearchView.windowToken, 0)
-    }
-
-    fun getNoticias(){
-        scope.launch {
-            val response = viewModel.getNoticias()
-            println("response in fragment ${response.size}")
+        override fun onQueryTextChange(newText: String?): Boolean {
+            filterData(newText)
+            return true
         }
+    })
+}
+
+private fun filterData(query: String?) {
+    val filteredData = dataList.filter { noticia ->
+        // Return true if the noticia's title or description contains the query (case-insensitive)
+        noticia.title.contains(query.orEmpty(), ignoreCase = true) ||
+                noticia.description.contains(query.orEmpty(), ignoreCase = true)
     }
+    noticiasAdapter.submitFilteredData(filteredData)
+}
+
+
+private fun hideKeyboard() {
+    val inputMethodManager =
+        requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(noticiasSearchView.windowToken, 0)
+}
+
+fun getNoticias() {
+    scope.launch {
+        val response = viewModel.getNoticias()
+    }
+}
+
+suspend fun getTags(): List<Tag> {
+    return viewModel.getTags()
+}
 }
