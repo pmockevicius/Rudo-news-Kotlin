@@ -38,6 +38,7 @@ class Noticias_fragment : Fragment() {
     private lateinit var noticiasAdapter: NoticiasAdapter
     private lateinit var dataList: List<Noticia>
     private lateinit var tagsMessage: TextView
+    private lateinit var filteredDataList: List<Noticia>
 
     val scope = MainScope()
     var selectedTags: MutableList<String> = mutableListOf()
@@ -65,7 +66,7 @@ class Noticias_fragment : Fragment() {
 
         tagsMessage = binding.filtrosTextView
 
-        scope.launch (  Dispatchers.IO){
+        scope.launch(Dispatchers.IO) {
             onView()
         }
 
@@ -79,7 +80,7 @@ class Noticias_fragment : Fragment() {
         getNoticias()
         initNoticiasRecyclerView()
         initTagsRecyclerView()
-}
+    }
 
 //    private fun initObservers() {
 //        val observer = Observer<List<Noticia>> {
@@ -92,93 +93,116 @@ class Noticias_fragment : Fragment() {
 //        }
 //    }
 
-private suspend fun initNoticiasRecyclerView() {
-    val recyclerView: RecyclerView = binding.NoticiasRecyclerView
+    private suspend fun initNoticiasRecyclerView() {
+        val recyclerView: RecyclerView = binding.NoticiasRecyclerView
 //         dataList = listOf("Item 1", "Item 2", "Item 3", "Item 3", "Item 3", "Item 3") // Your data source
-    dataList = viewModel.getNoticias()
-    noticiasAdapter = NoticiasAdapter(dataList)
+        dataList = viewModel.getNoticias()
+        noticiasAdapter = NoticiasAdapter(dataList)
 
-    recyclerView.adapter = noticiasAdapter
-    recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = noticiasAdapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-}
-
-suspend fun initTagsRecyclerView() {
-    val recyclerView: RecyclerView = binding.TagsRecyclerView
-    val tagsList = viewModel.getTags()
-    val tagPressed: ((tag: String) -> Unit) = { tag ->
-        saveTag(tag)
     }
-    val adapter = TagsAdapter(tagsList, tagPressed)
 
-    recyclerView.adapter = adapter
+    suspend fun initTagsRecyclerView() {
+        val recyclerView: RecyclerView = binding.TagsRecyclerView
+        val tagsList = viewModel.getTags()
+        val tagPressed: ((tag: String) -> Unit) = { tag ->
+            saveTag(tag)
+            filterWithChips(selectedTags)
+        }
+        val adapter = TagsAdapter(tagsList, tagPressed)
 
-    recyclerView.layoutManager =
-        LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.adapter = adapter
 
-}
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+    }
 
     private fun saveTag(tag: String) {
         selectedTags.run {
             if (contains(tag)) remove(tag) else add(tag)
         }
-        if (selectedTags.isNotEmpty()){
+        displayFiltersMessage()
+    }
+
+    private fun displayFiltersMessage() {
+        if (selectedTags.isNotEmpty()) {
             tagsMessage.visibility = View.VISIBLE
-        }else {
+        } else {
             tagsMessage.visibility = View.GONE
         }
-
-
-
     }
 
 
-private fun setNavbarTitle() {
-    val activity = activity as? LoggedInActivity
-    activity?.setNavBarText("Noticias")
-}
+    private fun setNavbarTitle() {
+        val activity = activity as? LoggedInActivity
+        activity?.setNavBarText("Noticias")
+    }
 
-private fun setSearchViewListener() {
-    noticiasSearchView = binding.noticiasSearchView
+    private fun setSearchViewListener() {
+        noticiasSearchView = binding.noticiasSearchView
 
-    noticiasSearchView.setOnQueryTextListener(object :
-        android.widget.SearchView.OnQueryTextListener {
-        override fun onQueryTextSubmit(query: String?): Boolean {
-            noticiasSearchView.clearFocus()
+        noticiasSearchView.setOnQueryTextListener(object :
+            android.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                noticiasSearchView.clearFocus()
 
-            return true
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterData(newText)
+                return true
+            }
+        })
+    }
+
+
+    private fun filterWithChips(selectedTags: List<String>) {
+        filteredDataList = if (selectedTags.isEmpty()) {
+            dataList
+        } else {
+            dataList.filter { noticia ->
+                selectedTags.any { tag ->
+                    noticia.tag.contains(tag)
+                }
+            }
         }
+        noticiasAdapter.submitFilteredData(filteredDataList)
+    }
 
-        override fun onQueryTextChange(newText: String?): Boolean {
-            filterData(newText)
-            return true
+    private fun filterData(query: String?) {
+        val filteredData = if (query.isNullOrEmpty()) {
+            filteredDataList
+        } else {
+            filteredDataList.filter { noticia ->
+                selectedTags.any { tag ->
+                    noticia.tag.contains(tag)
+                } && (
+                        noticia.title.contains(query, ignoreCase = true) ||
+                                noticia.description.contains(query, ignoreCase = true)
+                        )
+            }
         }
-    })
-}
-
-private fun filterData(query: String?) {
-    val filteredData = dataList.filter { noticia ->
-        // Return true if the noticia's title or description contains the query (case-insensitive)
-        noticia.title.contains(query.orEmpty(), ignoreCase = true) ||
-                noticia.description.contains(query.orEmpty(), ignoreCase = true)
+        noticiasAdapter.submitFilteredData(filteredData)
     }
-    noticiasAdapter.submitFilteredData(filteredData)
-}
 
 
-private fun hideKeyboard() {
-    val inputMethodManager =
-        requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    inputMethodManager.hideSoftInputFromWindow(noticiasSearchView.windowToken, 0)
-}
-
-fun getNoticias() {
-    scope.launch {
-        val response = viewModel.getNoticias()
+    private fun hideKeyboard() {
+        val inputMethodManager =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(noticiasSearchView.windowToken, 0)
     }
-}
 
-suspend fun getTags(): List<Tag> {
-    return viewModel.getTags()
-}
+    fun getNoticias() {
+        scope.launch {
+            val response = viewModel.getNoticias()
+        }
+    }
+
+    suspend fun getTags(): List<Tag> {
+        return viewModel.getTags()
+    }
 }

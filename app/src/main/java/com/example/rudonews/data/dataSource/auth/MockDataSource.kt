@@ -44,7 +44,7 @@ class MockDataSource() : DataSourceInterface {
          Tag("Ocio"),
          Tag("Gaming"),
          Tag("Comida"),
-         Tag("Gaming"),
+         Tag("Tech"),
          Tag("Depotrte"),
          Tag("Travel"),
          Tag("Animals"),
