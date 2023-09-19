@@ -1,6 +1,5 @@
 package com.example.rudonews.domain.usecase
 
-import com.example.rudonews.MainActivity
 import com.example.rudonews.data.repository.AuthRepository
 import com.example.rudonews.domain.entity.User
 

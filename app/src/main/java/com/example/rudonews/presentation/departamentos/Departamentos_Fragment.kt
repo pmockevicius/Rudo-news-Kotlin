@@ -9,7 +9,7 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rudonews.MainActivity
+import com.example.rudonews.activities.MainActivity
 import com.example.rudonews.R
 import com.example.rudonews.data.dataSource.auth.MockDataSource
 import com.example.rudonews.data.repository.DataRepository

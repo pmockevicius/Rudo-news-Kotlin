@@ -16,18 +16,43 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/noticiaImageView"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/sample"
-            android:adjustViewBounds="true"
-            android:layout_marginBottom="10dp" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/noticiaImageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sample"
+                android:adjustViewBounds="true"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/noticiaTitleOverImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="asdasd"
+                app:layout_constraintBottom_toBottomOf="@id/noticiaImageView"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="@id/noticiaImageView"
+                app:layout_constraintEnd_toEndOf="@id/noticiaImageView"
+                android:textSize="24sp"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="15dp"
+                />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/noticiaCardTitle"
@@ -96,6 +121,7 @@
                 android:layout_weight="1" />
 
             <ImageView
+                android:id="@+id/favoriteImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_favorite"
@@ -103,6 +129,7 @@
                 android:layout_marginHorizontal="5dp" />
 
             <ImageView
+                android:id="@+id/shareImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_share"

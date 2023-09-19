@@ -1,16 +1,20 @@
-package com.example.rudonews
+package com.example.rudonews.activities
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
+import com.example.rudonews.R
+import com.example.rudonews.activities.DetailsActivity.DetailsActivity
 import com.example.rudonews.databinding.ActivityMainBinding
+import com.example.rudonews.domain.entity.Noticia
 import com.example.rudonews.presentation.contrasena_olvidad.Contrasena_Olvidad_Fragment
 import com.example.rudonews.presentation.departamentos.Departamentos_Fragment
 import com.example.rudonews.presentation.login.Login_fragment
-import com.example.rudonews.presentation.noticias.Noticias_fragment
 import com.example.rudonews.presentation.register.Register_fragment
 
 class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedListener {
@@ -82,11 +86,16 @@ class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedList
             .commit()
     }
 
-    fun navigateToNoticiasFragment(){
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, Noticias_fragment() )
-            .addToBackStack(null)
-            .commit()
+    fun navigateToNoticiasActivity(){
+        val intent = Intent(this, LoggedInActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun navigateToDetailsActivity(noticia: Noticia, context: Context){
+        println("Opening ${noticia.title}")
+
+        val intent = Intent(context, DetailsActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onBackStackChanged() {

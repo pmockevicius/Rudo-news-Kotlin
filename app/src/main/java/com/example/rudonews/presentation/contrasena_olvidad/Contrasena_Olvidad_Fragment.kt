@@ -5,19 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.rudonews.MainActivity
-import com.example.rudonews.R
+import com.example.rudonews.activities.MainActivity
 import com.example.rudonews.data.dataSource.auth.MockAuthDatasource
 import com.example.rudonews.data.repository.AuthRepository
 import com.example.rudonews.databinding.FragmentContrasenaOlvidadBinding
-import com.example.rudonews.databinding.RegisterFragmentBinding
 import com.example.rudonews.domain.usecase.AuthUsecase
-import com.example.rudonews.presentation.login.LoginViewModel
 import com.example.rudonews.utils.helpers.DialogHelper
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class Contrasena_Olvidad_Fragment : Fragment() {
 

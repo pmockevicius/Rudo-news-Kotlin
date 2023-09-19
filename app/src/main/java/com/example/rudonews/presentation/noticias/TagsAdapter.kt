@@ -8,7 +8,7 @@ import com.example.rudonews.R
 import com.example.rudonews.domain.entity.Tag
 
 
-class TagsAdapter(private val dataList: List<Tag>, private val tagPressed: ((tag: String) -> Unit)) : RecyclerView.Adapter<TagsViewHolder>() {
+class TagsAdapter(private val tagsList: List<Tag>, private val tagPressed: ((tag: String) -> Unit)) : RecyclerView.Adapter<TagsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_tag, parent, false)
@@ -16,10 +16,10 @@ class TagsAdapter(private val dataList: List<Tag>, private val tagPressed: ((tag
     }
 
     override fun onBindViewHolder(holder: TagsViewHolder, position: Int) {
-        holder.bind(dataList[position], dataList, tagPressed)
+        holder.bind(tagsList[position], tagsList, tagPressed)
     }
 
     override fun getItemCount(): Int {
-        return dataList.size
+        return tagsList.size
     }
 }

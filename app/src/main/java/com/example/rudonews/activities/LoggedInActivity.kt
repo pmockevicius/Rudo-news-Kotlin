@@ -1,9 +1,10 @@
-package com.example.rudonews
+package com.example.rudonews.activities
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.rudonews.R
 import com.example.rudonews.databinding.ActivityLoggedinBinding
 import com.example.rudonews.presentation.Favorites_fragment
 import com.example.rudonews.presentation.editPerfil.Edit_Perfil_fragment

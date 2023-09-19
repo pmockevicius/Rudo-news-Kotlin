@@ -9,11 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import androidx.lifecycle.Observer
-import androidx.lifecycle.distinctUntilChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.rudonews.LoggedInActivity
+import com.example.rudonews.activities.LoggedInActivity
 import com.example.rudonews.data.dataSource.auth.MockDataSource
 import com.example.rudonews.data.repository.DataRepository
 import com.example.rudonews.databinding.FragmentNoticiasBinding
@@ -23,7 +21,6 @@ import com.example.rudonews.domain.usecase.DataUsecase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class Noticias_fragment : Fragment() {
@@ -38,11 +35,11 @@ class Noticias_fragment : Fragment() {
     private lateinit var noticiasAdapter: NoticiasAdapter
     private lateinit var dataList: List<Noticia>
     private lateinit var tagsMessage: TextView
-    private lateinit var filteredDataList: List<Noticia>
+//    private lateinit var filteredDataList: List<Noticia>
 
     val scope = MainScope()
     var selectedTags: MutableList<String> = mutableListOf()
-
+    var filteredDataList: List<Noticia> = listOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -95,7 +92,6 @@ class Noticias_fragment : Fragment() {
 
     private suspend fun initNoticiasRecyclerView() {
         val recyclerView: RecyclerView = binding.NoticiasRecyclerView
-//         dataList = listOf("Item 1", "Item 2", "Item 3", "Item 3", "Item 3", "Item 3") // Your data source
         dataList = viewModel.getNoticias()
         noticiasAdapter = NoticiasAdapter(dataList)
 

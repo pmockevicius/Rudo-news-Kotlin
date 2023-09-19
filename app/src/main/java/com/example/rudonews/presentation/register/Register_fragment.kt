@@ -11,7 +11,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.rudonews.MainActivity
+import com.example.rudonews.activities.MainActivity
 import com.example.rudonews.R
 import com.example.rudonews.databinding.RegisterFragmentBinding
 import com.example.rudonews.domain.entity.Departament

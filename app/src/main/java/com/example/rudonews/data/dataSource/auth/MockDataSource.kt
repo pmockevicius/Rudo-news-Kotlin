@@ -1,11 +1,10 @@
 package com.example.rudonews.data.dataSource.auth
 
+import com.example.rudonews.domain.entity.Comment
 import com.example.rudonews.domain.entity.Departament
 import com.example.rudonews.domain.entity.Noticia
 import com.example.rudonews.domain.entity.Tag
 import com.example.rudonews.domain.entity.User
-
-
 
 
 class MockDataSource() : DataSourceInterface {
@@ -39,16 +38,16 @@ class MockDataSource() : DataSourceInterface {
 
 
     override suspend fun getTags(): List<Tag> {
-     return listOf(
-         Tag("Sport"),
-         Tag("Ocio"),
-         Tag("Gaming"),
-         Tag("Comida"),
-         Tag("Tech"),
-         Tag("Depotrte"),
-         Tag("Travel"),
-         Tag("Animals"),
-     )
+        return listOf(
+            Tag("Sport"),
+            Tag("Ocio"),
+            Tag("Gaming"),
+            Tag("Comida"),
+            Tag("Tech"),
+            Tag("Depotrte"),
+            Tag("Travel"),
+            Tag("Animals"),
+        )
 
     }
 
@@ -65,8 +64,10 @@ class MockDataSource() : DataSourceInterface {
                 "01-01-2023",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce cursus sollicitudin pulvinar. Praesent aliquam nec elit vitae iaculis. Etiam consequat augue quis laoreet euismod. Etiam fermentum sodales lorem a lacinia. Donec iaculis dui eget orci egestas, ac pharetra magna viverra. ",
                 "Sport",
-                 "This release focuses on some build improvements and Compose. The two major Compose improvements are adding support for Compose specific transitions (e.g. cross fade) and supporting recomposition based on request state using GlideSubcomposition. "
-
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et, tristique duis sagittis at lacus, gravida neque, dictumst. Tellus bibendum augue lacinia ligula. Malesuada aliquet molestie commodo quisque pellentesque. Diam tempor amet ornare amet lobortis enim. Augue dui vitae et, porta nulla. Sagittis urna sit scelerisque morbi in. Amet sed eu, blandit eget vitae, viverra vel. Amet, penatibus lorem ac dignissim donec enim. Mi diam velit commodo mattis ipsum. Cras ultricies nisl enim elit nulla tempus, sed dictumst. Viverra ultricies egestas potenti quam felis. Eu mus a amet urna condimentum. At et leo a nam. Mattis porttitor integer et scelerisque ut. Odio phasellus pulvinar urna, sed scelerisque maecenas pulvinar. Mauris, elit habitasse massa et dolor id mauris amet, at. Eget sed semper urna tincidunt quam vulputate lorem pretium. Orci metus non tortor massa elementum. Tellus malesuada dictum congue vitae, ornare dis. Eu ut id sagittis a, tortor, purus. Auctor habitasse ipsum viverra gravida sapien sit. A mauris eget eros, ultrices. Interdum pharetra, egestas volutpat amet Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et, tristique duis sagittis at lacus, gravida neque, dictumst. Tellus bibendum augue lacinia ligula. Malesuada aliquet molestie commodo quisque pellentesque. Diam tempor amet ornare amet lobortis enim. Augue dui vitae et, porta nulla. Sagittis urna sit scelerisque morbi in. Amet sed eu, blandit eget vitae, viverra vel. Amet, penatibus lorem ac dignissim donec enim. Mi diam velit commodo mattis ipsum. Cras ultricies nisl enim elit nulla tempus, sed dictumst. Viverra ultricies egestas potenti quam felis. Eu mus a amet urna condimentum. At et leo a nam. Mattis porttitor integer et scelerisque ut. Odio phasellus pulvinar urna, sed scelerisque maecenas pulvinar. Mauris, elit habitasse massa et dolor id mauris amet, at. Eget sed semper urna tincidunt quam vulputate lorem pretium. Orci metus non tortor massa elementum. Tellus malesuada dictum congue vitae, ornare dis. Eu ut id sagittis a, tortor, purus. Auctor habitasse ipsum viverra gravida sapien sit. A mauris eget eros, ultrices. Interdum pharetra, egestas volutpat amet",
+                false,
+                1,
+                listOf(Comment("Arturo Salacedo", "Diseño, Ventas, Ionic", "01-01-2023", "not available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium porttitor orci, ut sed proin id morbi. Ac tincidunt donec imperdiet venenatis aliquet ipsum. Facilisi iaculis scelerisque sit vitae lectus dis turpis ac cum."), Comment("Arturo Salacedo", "Diseño, Ventas, Ionic", "01-01-2023", "not available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium porttitor orci, ut sed proin id morbi. Ac tincidunt donec imperdiet venenatis aliquet ipsum. Facilisi iaculis scelerisque sit vitae lectus dis turpis ac cum."),Comment("Arturo Salacedo", "Diseño, Ventas, Ionic", "01-01-2023", "not available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium porttitor orci, ut sed proin id morbi. Ac tincidunt donec imperdiet venenatis aliquet ipsum. Facilisi iaculis scelerisque sit vitae lectus dis turpis ac cum."),Comment("Arturo Salacedo", "Diseño, Ventas, Ionic", "01-01-2023", "not available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium porttitor orci, ut sed proin id morbi. Ac tincidunt donec imperdiet venenatis aliquet ipsum. Facilisi iaculis scelerisque sit vitae lectus dis turpis ac cum."),Comment("Arturo Salacedo", "Diseño, Ventas, Ionic", "01-01-2023", "not available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium porttitor orci, ut sed proin id morbi. Ac tincidunt donec imperdiet venenatis aliquet ipsum. Facilisi iaculis scelerisque sit vitae lectus dis turpis ac cum."),Comment("Arturo Salacedo", "Diseño, Ventas, Ionic", "01-01-2023", "not available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium porttitor orci, ut sed proin id morbi. Ac tincidunt donec imperdiet venenatis aliquet ipsum. Facilisi iaculis scelerisque sit vitae lectus dis turpis ac cum."),Comment("Arturo Salacedo", "Diseño, Ventas, Ionic", "01-01-2023", "not available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium porttitor orci, ut sed proin id morbi. Ac tincidunt donec imperdiet venenatis aliquet ipsum. Facilisi iaculis scelerisque sit vitae lectus dis turpis ac cum."),Comment("Arturo Salacedo", "Diseño, Ventas, Ionic", "01-01-2023", "not available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium porttitor orci, ut sed proin id morbi. Ac tincidunt donec imperdiet venenatis aliquet ipsum. Facilisi iaculis scelerisque sit vitae lectus dis turpis ac cum."),Comment("Arturo Salacedo", "Diseño, Ventas, Ionic", "01-01-2023", "not available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium porttitor orci, ut sed proin id morbi. Ac tincidunt donec imperdiet venenatis aliquet ipsum. Facilisi iaculis scelerisque sit vitae lectus dis turpis ac cum."),Comment("Arturo Salacedo", "Diseño, Ventas, Ionic", "01-01-2023", "not available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium porttitor orci, ut sed proin id morbi. Ac tincidunt donec imperdiet venenatis aliquet ipsum. Facilisi iaculis scelerisque sit vitae lectus dis turpis ac cum."),Comment("Arturo Salacedo", "Diseño, Ventas, Ionic", "01-01-2023", "not available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium porttitor orci, ut sed proin id morbi. Ac tincidunt donec imperdiet venenatis aliquet ipsum. Facilisi iaculis scelerisque sit vitae lectus dis turpis ac cum."),Comment("Arturo Salacedo", "Diseño, Ventas, Ionic", "01-01-2023", "not available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium porttitor orci, ut sed proin id morbi. Ac tincidunt donec imperdiet venenatis aliquet ipsum. Facilisi iaculis scelerisque sit vitae lectus dis turpis ac cum."),Comment("Arturo Salacedo", "Diseño, Ventas, Ionic", "01-01-2023", "not available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium porttitor orci, ut sed proin id morbi. Ac tincidunt donec imperdiet venenatis aliquet ipsum. Facilisi iaculis scelerisque sit vitae lectus dis turpis ac cum."),Comment("Arturo Salacedo", "Diseño, Ventas, Ionic", "01-01-2023", "not available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium porttitor orci, ut sed proin id morbi. Ac tincidunt donec imperdiet venenatis aliquet ipsum. Facilisi iaculis scelerisque sit vitae lectus dis turpis ac cum."))
             )
         )
 
@@ -77,7 +78,10 @@ class MockDataSource() : DataSourceInterface {
                 "01-01-2023",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce cursus sollicitudin pulvinar. Praesent aliquam nec elit vitae iaculis. Eti",
                 "Gaming",
-                "This release focuses on some build improvements and Compose. The two major Compose improvements are adding support for Compose specific transitions (e.g. cross fade) and supporting recomposition based on request state using GlideSubcomposition. "
+                "This release focuses on some build improvements and Compose. The two major Compose improvements are adding support for Compose specific transitions (e.g. cross fade) and supporting recomposition based on request state using GlideSubcomposition. ",
+                true,
+                2,
+                listOf(Comment("Arturo Salacedo", "Diseño, Ventas, Ionic", "01-01-2023", "not available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium porttitor orci, ut sed proin id morbi. Ac tincidunt donec imperdiet venenatis aliquet ipsum. Facilisi iaculis scelerisque sit vitae lectus dis turpis ac cum."))
             )
         )
 
@@ -88,7 +92,10 @@ class MockDataSource() : DataSourceInterface {
                 "01-01-2023",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce cursus sollicitudin pulvinar. Praesent aliquam nec elit vitae iaculis. Eti",
                 "Ocio",
-                "This release focuses on some build improvements and Compose. The two major Compose improvements are adding support for Compose specific transitions (e.g. cross fade) and supporting recomposition based on request state using GlideSubcomposition. "
+                "This release focuses on some build improvements and Compose. The two major Compose improvements are adding support for Compose specific transitions (e.g. cross fade) and supporting recomposition based on request state using GlideSubcomposition. ",
+                false,
+                3,
+                listOf(Comment("Arturo Salacedo", "Diseño, Ventas, Ionic", "01-01-2023", "not available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium porttitor orci, ut sed proin id morbi. Ac tincidunt donec imperdiet venenatis aliquet ipsum. Facilisi iaculis scelerisque sit vitae lectus dis turpis ac cum."))
             )
         )
 
@@ -99,7 +106,10 @@ class MockDataSource() : DataSourceInterface {
                 "01-01-2023",
                 "Mauris id viverra metus. Nulla mollis orci nec euismod egestas. Aenean auctor leo dapibus, vestibulum leo et, condimentum ligula. Pellentesque ultricies odio sed sapien congue sodales. Aenean vitae pulvinar tellus. In aliquet id sem ac fringilla. Nunc fringilla lacus at ante fermentum pelle",
                 "Comida",
-                "This release focuses on some build improvements and Compose. The two major Compose improvements are adding support for Compose specific transitions (e.g. cross fade) and supporting recomposition based on request state using GlideSubcomposition. "
+                "This release focuses on some build improvements and Compose. The two major Compose improvements are adding support for Compose specific transitions (e.g. cross fade) and supporting recomposition based on request state using GlideSubcomposition. ",
+                false,
+                4,
+                listOf(Comment("Arturo Salacedo", "Diseño, Ventas, Ionic", "01-01-2023", "not available", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pretium porttitor orci, ut sed proin id morbi. Ac tincidunt donec imperdiet venenatis aliquet ipsum. Facilisi iaculis scelerisque sit vitae lectus dis turpis ac cum."))
             )
         )
 
@@ -110,13 +120,16 @@ class MockDataSource() : DataSourceInterface {
                 "01-01-2023",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce cursus sollicitudin pulvinar. 5",
                 "Sport",
-                "This release focuses on some build improvements and Compose. The two major Compose improvements are adding support for Compose specific transitions (e.g. cross fade) and supporting recomposition based on request state using GlideSubcomposition. "
+                "This release focuses on some build improvements and Compose. The two major Compose improvements are adding support for Compose specific transitions (e.g. cross fade) and supporting recomposition based on request state using GlideSubcomposition. ",
+                false,
+                5,
+                null
+
             )
         )
 
         return noticias
     }
-
 
 
 }
