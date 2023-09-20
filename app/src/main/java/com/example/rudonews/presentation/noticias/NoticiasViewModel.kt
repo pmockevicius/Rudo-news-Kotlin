@@ -1,16 +1,13 @@
 package com.example.rudonews.presentation.noticias
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewmodel.CreationExtras
-import com.example.rudonews.domain.entity.Noticia
+import com.example.rudonews.domain.entity.News
 import com.example.rudonews.domain.entity.Tag
 import com.example.rudonews.domain.usecase.DataUsecase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 interface NoticiasViewModelInterface{
-     suspend fun getNoticias(): List<Noticia>
+     suspend fun getNoticias(): List<News>
      suspend fun getTags(): List<Tag>
 
 }
@@ -18,8 +15,8 @@ interface NoticiasViewModelInterface{
 class NoticiasViewModel(val dataUsecase: DataUsecase) : NoticiasViewModelInterface {
 
 //    var news = MutableLiveData<List<Noticia>>()
-    override suspend fun getNoticias(): List<Noticia> {
-    var response=  (emptyList <Noticia>())
+    override suspend fun getNoticias(): List<News> {
+    var response=  (emptyList <News>())
 
     withContext(Dispatchers.IO) {
         response = dataUsecase.getNoticias()

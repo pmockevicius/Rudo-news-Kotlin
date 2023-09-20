@@ -2,14 +2,14 @@ package com.example.rudonews.data.repository
 
 import com.example.rudonews.data.dataSource.auth.MockDataSource
 import com.example.rudonews.domain.entity.Departament
-import com.example.rudonews.domain.entity.Noticia
+import com.example.rudonews.domain.entity.News
 import com.example.rudonews.domain.entity.Tag
 
 
 interface DataRepositoryInterface  {
 
     suspend fun getDepartments(): List<Departament>
-   suspend fun getNoticias(): List<Noticia>
+   suspend fun getNoticias(): List<News>
    suspend fun getTags(): List<Tag>
 
 }
@@ -19,7 +19,7 @@ class DataRepository(private val mockDataSource: MockDataSource) :DataRepository
         return departments
     }
 
-    override suspend fun getNoticias(): List<Noticia> {
+    override suspend fun getNoticias(): List<News> {
 
         val noticias = mockDataSource.getNoticias()
         return noticias

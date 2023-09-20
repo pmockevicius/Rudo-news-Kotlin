@@ -2,7 +2,7 @@ package com.example.rudonews.domain.entity
 
 import java.io.Serializable
 
-class Noticia (
+class News (
     val image: String,
     val title: String,
     val date: String,

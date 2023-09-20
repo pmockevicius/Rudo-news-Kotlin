@@ -3,13 +3,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rudonews.activities.MainActivity
 import com.example.rudonews.R
-import com.example.rudonews.domain.entity.Noticia
+import com.example.rudonews.domain.entity.News
 import com.example.rudonews.presentation.noticias.NoticiasViewHolder
 
-class NoticiasAdapter(private val originalDataList: List<Noticia>) :
+class NoticiasAdapter(private val originalDataList: List<News>) :
     RecyclerView.Adapter<NoticiasViewHolder>() {
 
-    private var filteredDataList: List<Noticia> = originalDataList
+    private var filteredDataList: List<News> = originalDataList
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoticiasViewHolder {
@@ -22,15 +22,6 @@ class NoticiasAdapter(private val originalDataList: List<Noticia>) :
 
         val currentNoticia = filteredDataList[position]
 
-//        holder.title.text = currentNoticia.title
-//        holder.notciaDate.text = currentNoticia.date
-//        holder.description.text = currentNoticia.description
-//        holder.tagText.text = currentNoticia.tag
-//
-//        Glide.with(holder.itemView)
-//            .load(currentNoticia.image)
-//            .into(holder.imageView)
-//
 
         holder.bind(currentNoticia)
     }
@@ -39,7 +30,7 @@ class NoticiasAdapter(private val originalDataList: List<Noticia>) :
         return filteredDataList.size
     }
 
-    fun submitFilteredData(filteredData: List<Noticia>) {
+    fun submitFilteredData(filteredData: List<News>) {
         filteredDataList = filteredData
         notifyDataSetChanged()
     }

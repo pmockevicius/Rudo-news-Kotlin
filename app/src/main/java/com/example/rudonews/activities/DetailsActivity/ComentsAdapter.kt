@@ -2,12 +2,9 @@ package com.example.rudonews.activities.DetailsActivity
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rudonews.R
 import com.example.rudonews.domain.entity.Comment
-import com.example.rudonews.domain.entity.Noticia
-import com.example.rudonews.domain.entity.Tag
 
 
 class ComentsAdapter(private val comments: List<Comment>?) : RecyclerView.Adapter<CommentsViewHolder>() {

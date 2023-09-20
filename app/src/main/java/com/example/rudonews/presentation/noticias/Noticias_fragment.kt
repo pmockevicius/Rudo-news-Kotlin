@@ -15,7 +15,7 @@ import com.example.rudonews.activities.LoggedInActivity
 import com.example.rudonews.data.dataSource.auth.MockDataSource
 import com.example.rudonews.data.repository.DataRepository
 import com.example.rudonews.databinding.FragmentNoticiasBinding
-import com.example.rudonews.domain.entity.Noticia
+import com.example.rudonews.domain.entity.News
 import com.example.rudonews.domain.entity.Tag
 import com.example.rudonews.domain.usecase.DataUsecase
 import kotlinx.coroutines.Dispatchers
@@ -33,13 +33,13 @@ class Noticias_fragment : Fragment() {
     private lateinit var binding: FragmentNoticiasBinding
     private lateinit var noticiasSearchView: android.widget.SearchView
     private lateinit var noticiasAdapter: NoticiasAdapter
-    private lateinit var dataList: List<Noticia>
+    private lateinit var dataList: List<News>
     private lateinit var tagsMessage: TextView
 //    private lateinit var filteredDataList: List<Noticia>
 
     val scope = MainScope()
     var selectedTags: MutableList<String> = mutableListOf()
-    var filteredDataList: List<Noticia> = listOf()
+    var filteredDataList: List<News> = listOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -149,7 +149,7 @@ class Noticias_fragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                filterData(newText)
+                filterData(newText, selectedTags)
                 return true
             }
         })
@@ -169,17 +169,21 @@ class Noticias_fragment : Fragment() {
         noticiasAdapter.submitFilteredData(filteredDataList)
     }
 
-    private fun filterData(query: String?) {
-        val filteredData = if (query.isNullOrEmpty()) {
-            filteredDataList
+    private fun filterData(query: String?, selectedTags: List<String>) {
+        val filteredData = if (query.isNullOrBlank() && selectedTags.isEmpty()) {
+            // No filtering required, return the original data list
+            dataList
         } else {
-            filteredDataList.filter { noticia ->
-                selectedTags.any { tag ->
+            dataList.filter { noticia ->
+                val matchesTag = selectedTags.isEmpty() || selectedTags.any { tag ->
                     noticia.tag.contains(tag)
-                } && (
+                }
+
+                val matchesQuery = query.isNullOrBlank() ||
                         noticia.title.contains(query, ignoreCase = true) ||
-                                noticia.description.contains(query, ignoreCase = true)
-                        )
+                        noticia.description.contains(query, ignoreCase = true)
+
+                matchesTag && matchesQuery
             }
         }
         noticiasAdapter.submitFilteredData(filteredData)

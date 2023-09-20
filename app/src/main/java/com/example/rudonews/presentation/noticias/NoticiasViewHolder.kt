@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.rudonews.activities.DetailsActivity.DetailsActivity
 import com.example.rudonews.activities.MainActivity
 import com.example.rudonews.R
-import com.example.rudonews.domain.entity.Noticia
+import com.example.rudonews.domain.entity.News
 
 
 class NoticiasViewHolder(itemView: View, private val mainActivity: MainActivity) : RecyclerView.ViewHolder(itemView) {
@@ -25,7 +25,7 @@ class NoticiasViewHolder(itemView: View, private val mainActivity: MainActivity)
     val titleOverImage : TextView = itemView.findViewById(R.id.noticiaTitleOverImage)
 
 
-    fun bind(currentNoticia:Noticia) {
+    fun bind(currentNoticia:News) {
 
         title.text = currentNoticia.title
         notciaDate.text = currentNoticia.date
@@ -46,15 +46,21 @@ class NoticiasViewHolder(itemView: View, private val mainActivity: MainActivity)
 
 
         favoritesImageView.setOnClickListener {
-            println("news pressed ${currentNoticia.isFavorite}")
-            if (currentNoticia.isFavorite){
-                favoritesImageView.setImageResource(R.drawable.icon_favorite)
+
+
+            val imageResource = if (currentNoticia.isFavorite) {
+                R.drawable.icon_favorite
             } else {
-                favoritesImageView.setImageResource(R.drawable.icon_favorite_selected)
+                R.drawable.icon_favorite_selected
             }
+
+            favoritesImageView.setImageResource(imageResource)
             currentNoticia.isFavorite = !currentNoticia.isFavorite
 
+            println("is favorite? ${currentNoticia.isFavorite}")
+
         }
+
 
         shareImageView.setOnClickListener{
             val shareData = Intent(Intent.ACTION_SEND)

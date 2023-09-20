@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentManager
 import com.example.rudonews.R
 import com.example.rudonews.activities.DetailsActivity.DetailsActivity
 import com.example.rudonews.databinding.ActivityMainBinding
-import com.example.rudonews.domain.entity.Noticia
+import com.example.rudonews.domain.entity.News
 import com.example.rudonews.presentation.contrasena_olvidad.Contrasena_Olvidad_Fragment
 import com.example.rudonews.presentation.departamentos.Departamentos_Fragment
 import com.example.rudonews.presentation.login.Login_fragment
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedList
         startActivity(intent)
     }
 
-    fun navigateToDetailsActivity(noticia: Noticia, context: Context){
+    fun navigateToDetailsActivity(noticia: News, context: Context){
         println("Opening ${noticia.title}")
 
         val intent = Intent(context, DetailsActivity::class.java)

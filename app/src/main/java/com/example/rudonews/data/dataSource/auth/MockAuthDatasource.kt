@@ -11,6 +11,7 @@ class MockAuthDatasource() : AuthDatasourceInterface {
         val users = mutableListOf<User>()
 
         users.add(User("test", "test"))
+        users.add(User("a", "a"))
         users.add(User("user2@example.com", "password2"))
         users.add(User("user3@example.com", "password3"))
         users.add(User("user4@example.com", "password4"))

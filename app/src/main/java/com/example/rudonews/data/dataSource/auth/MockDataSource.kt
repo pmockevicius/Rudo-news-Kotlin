@@ -2,9 +2,8 @@ package com.example.rudonews.data.dataSource.auth
 
 import com.example.rudonews.domain.entity.Comment
 import com.example.rudonews.domain.entity.Departament
-import com.example.rudonews.domain.entity.Noticia
+import com.example.rudonews.domain.entity.News
 import com.example.rudonews.domain.entity.Tag
-import com.example.rudonews.domain.entity.User
 
 
 class MockDataSource() : DataSourceInterface {
@@ -52,13 +51,13 @@ class MockDataSource() : DataSourceInterface {
     }
 
 
-    override suspend fun getNoticias(): List<Noticia> {
+    override suspend fun getNoticias(): List<News> {
         println("getting noticias from mock")
 
-        val noticias = mutableListOf<Noticia>()
+        val noticias = mutableListOf<News>()
 
         noticias.add(
-            Noticia(
+            News(
                 "https://s.france24.com/media/display/688585be-9060-11ea-8c8d-005056a98db9/w:1280/p:16x9/journal-1920x1080_es.png",
                 "Title 1",
                 "01-01-2023",
@@ -72,7 +71,7 @@ class MockDataSource() : DataSourceInterface {
         )
 
         noticias.add(
-            Noticia(
+            News(
                 "https://media.datacenterdynamics.com/media/images/Extra.2e16d0ba.fill-1200x630.jpg",
                 "Title 2",
                 "01-01-2023",
@@ -86,7 +85,7 @@ class MockDataSource() : DataSourceInterface {
         )
 
         noticias.add(
-            Noticia(
+            News(
                 "https://www.lavanguardia.com/files/image_449_220/uploads/2020/10/04/5fad458984b64.jpeg",
                 "Title 3",
                 "01-01-2023",
@@ -100,7 +99,7 @@ class MockDataSource() : DataSourceInterface {
         )
 
         noticias.add(
-            Noticia(
+            News(
                 "https://www.incibe.es/sites/default/files/images/blog/portada_fake_news_0.png",
                 "Title 4",
                 "01-01-2023",
@@ -114,7 +113,7 @@ class MockDataSource() : DataSourceInterface {
         )
 
         noticias.add(
-            Noticia(
+            News(
                 "https://media.istockphoto.com/id/1198835856/es/vector/noticias-falsas-o-escaneo-de-hechos-con-ilustraci%C3%B3n-vectorial-de-lupa-ilustraci%C3%B3n-vectorial.jpg?s=1024x1024&w=is&k=20&c=Fr0WfR8kcLj9UyBUcULyc7Fcge0mQ0-pfrSaylTq61Y=",
                 "Title 5",
                 "01-01-2023",
