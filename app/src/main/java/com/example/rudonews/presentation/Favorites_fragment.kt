@@ -37,6 +37,14 @@ class Favorites_fragment : Fragment() {
     }
     private fun onView() {
         setNavbarTitle()
+        setReturnBtnClickListener()
+    }
+
+    private fun setReturnBtnClickListener() {
+        binding.favoritesBtnReturn.setOnClickListener {
+            val activity = activity as? LoggedInActivity
+            activity?.navigateToNoticiasFragment()
+        }
     }
 
     private fun setNavbarTitle(){

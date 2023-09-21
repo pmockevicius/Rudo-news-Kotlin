@@ -7,13 +7,16 @@ import androidx.fragment.app.Fragment
 import com.example.rudonews.R
 import com.example.rudonews.databinding.ActivityLoggedinBinding
 import com.example.rudonews.presentation.Favorites_fragment
+import com.example.rudonews.presentation.departamentos.Departamentos_Fragment
 import com.example.rudonews.presentation.editPerfil.Edit_Perfil_fragment
 import com.example.rudonews.presentation.noticias.Noticias_fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class LoggedInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoggedinBinding
     private lateinit var navBarTextView: TextView
+    private lateinit var bottomNavigation: BottomNavigationView
 
     private val noticiasFragment = Noticias_fragment()
     private val editPerfilFragment = Edit_Perfil_fragment()
@@ -25,6 +28,7 @@ class LoggedInActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         navBarTextView = binding.loggedInNavBarTextView
+        bottomNavigation = binding.bottomNavBar
 
         initializeFragments()
         setupBottomNavigationBar()
@@ -38,7 +42,7 @@ class LoggedInActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNavigationBar() {
-        val bottomNavigation = binding.bottomNavBar
+
 
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -59,5 +63,14 @@ class LoggedInActivity : AppCompatActivity() {
 
     fun setNavBarText(text: String) {
         navBarTextView.text = text
+    }
+
+    fun navigateToNoticiasFragment(){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container_loggedIn, Noticias_fragment())
+            .addToBackStack(null)
+            .commit()
+
+        bottomNavigation.selectedItemId = R.id.ic_noticias
     }
 }

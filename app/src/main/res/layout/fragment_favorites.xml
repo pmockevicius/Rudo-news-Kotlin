@@ -31,7 +31,7 @@
             android:layout_marginBottom="26dp"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/BtnRegister"
+            android:id="@+id/favoritesBtnReturn"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             android:text="IR A NOTICIAS"
             android:textColor="@color/fucia"
             app:cornerRadius="8dp"
-            app:strokeColor="@color/Grey" />
+            app:strokeColor="@color/soft_grey" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -2,6 +2,9 @@ package com.example.rudonews.activities.DetailsActivity
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +21,7 @@ class DetailsActivity: AppCompatActivity() {
     private lateinit var binding: ActivityDetailsBinding
     private lateinit var navBarTextView: TextView
     private lateinit var currentNoticia: News
+    private lateinit var commentInput: EditText
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +30,7 @@ class DetailsActivity: AppCompatActivity() {
         setContentView(binding.root)
 
         navBarTextView = binding.detailsNavBarTextView
+        commentInput = binding.detailsCommentEditText
 
 
         onView()
@@ -104,7 +109,6 @@ class DetailsActivity: AppCompatActivity() {
 
 
     private fun initFavoritesClickListenerInDetails(){
-
         binding.favoriteInNavbar.setOnClickListener {
             currentNoticia.isFavorite = !currentNoticia.isFavorite
 
@@ -116,6 +120,30 @@ class DetailsActivity: AppCompatActivity() {
 
             binding.favoriteInNavbar.setImageResource(imageResource)
         }
+
+    }
+
+    private fun initCommentOnTextChangeListener(){
+
+        commentInput.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val drawableColorResource = if (s.isNullOrEmpty()){
+                    R.color.Grey
+                }else {
+                    R.color.Grey
+                }
+
+                if (s.isNullOrEmpty()){
+                commentInput.
+                )
+                }
+            }
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+        })
 
     }
 }

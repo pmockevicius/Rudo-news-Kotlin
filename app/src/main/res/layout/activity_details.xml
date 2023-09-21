@@ -200,7 +200,8 @@
                 android:drawableRight="@drawable/comment_arrow"
                 android:lines="1"
                 android:maxLength="250"
-                android:textColorHint="@color/black" />
+                android:textColorHint="@color/black"
+                />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
